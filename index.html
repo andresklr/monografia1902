@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>SYM - Simulador de Estruturas de Dados</title>
+<link rel="stylesheet" type="text/css" href="include/estilo.css" />
+<link rel="stylesheet" type="text/css" href="include/highlight/styles/idea.css" />
+<link rel="stylesheet" type="text/css" href="include/jquery-ui/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="include/jquery-ui/jquery-ui.structure.min.css" />
+<link rel="stylesheet" type="text/css" href="include/jquery-ui/jquery-ui.theme.min.css" />
+<script type="text/javascript" src="include/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="include/svg.min.js"></script>
+<script type="text/javascript" src="include/highlight/highlight.pack.js"></script>
+<script type="text/javascript" src="include/svg.pathmorphing.min.js"></script>
+<script type="text/javascript" src="include/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="include/script.js" charset="utf-8"></script>
+</head>
+<body>
+<div class="conteudo">
+	<header id="barra-superior">
+		<div id="logo"><img src="include/logo.png" /></div>
+		<div id="controles">
+			Tipo de estrutura:<select id="tipo-lista"><option value="lse">Lista simplesmente encadeada desordenada</option><option value="lse_ord">Lista simplesmente encadeada ordenada</option><option value="lde">Lista duplamente encadeada</option><option value="pilha">Pilha</option><option value="fila">Fila</option></select><br />
+			<div id="botoes">
+				<button id="criar">Criar lista</button>
+				<button id="adicionar" disabled>Inserir elemento</button>
+				<button id="remover" disabled>Remover elemento</button>
+				<button id="pesquisar" disabled>Pesquisar elemento</button>
+				<button id="gerar" disabled>Gerar lista aleatória</button>
+				<button id="limpar">Limpar tela</button>
+			</div>
+		</div>
+	</header>
+	<div id="area-principal">
+		<div id="coluna-esquerda">
+			<div id="codigo">
+			</div>
+		</div>
+		<div id="coluna-meio">
+			<div id="lista">
+				
+			</div>
+		</div>
+		<div id="coluna-direita">
+			
+			<div id="memoria">
+				<div id="var-auxiliares">
+				</div>
+				<div id="heap">
+				</div>
+			</div>
+		</div>
+	</div>
+	<footer id="barra-inferior">
+		<div id="campo">
+			<label for="velocidade">Velocidade</label><input type="range" name="velocidade" id="velocidade" min="1" max="4" value="3">
+		</div>
+		<div id="campo">
+			<input type="checkbox" name="avanc_auto" id="avanc_auto" value="sim" checked /><label class="label-checkbox" for="avanc_auto">Avançar automaticamente</label>
+		</div>
+		<div id="campo">
+			<button id="avancar" disabled>Avançar</button>
+			<button id="pausar">Pausar</button>
+		</div>
+		<div id="log"></div>
+	</footer>
+	
+	<div id="lista_aleatoria" class="dialogo">
+		<label>Quantidade<input type="text" id="txt_quant_elem" size="5" maxlength="1" />(máximo: 7)</label>
+		<label class="op_lista_desordenada"><input type="checkbox" id="chk_pos_aleatorias" />Gerar itens em posições aleatórias</label>
+	</div>
+	
+	<div id="inserir_elemento" class="dialogo">
+		<label>Valor<input type="text" id="valor_inserir_elemento" size="5" maxlength="3" />(0 a 999)</label>
+		<label class="op_lista_desordenada"><input type="radio" name="posicao_inserir_elemento" value="inicio" />Início</label>
+		<label class="op_lista_desordenada"><input type="radio" name="posicao_inserir_elemento" value="meio" />Meio<input type="text" class="insercao-meio" id="posicao_inserir_meio" size="5" maxlength="1" placeholder="Posição"/><span class="insercao-meio">(Início em 0)</span></label>
+		<label class="op_lista_desordenada"><input type="radio" name="posicao_inserir_elemento" value="fim" />Fim</label>
+	</div>
+	
+	<div id="informar_valor" class="dialogo">
+		<label>Valor<input type="text" id="valor-elemento" size="5" />(0 a 999)</label>
+	</div>
+	
+	<div id="mensagem" class="dialogo">
+		<span id="texto-mensagem"></span>
+	</div>
+</div>
+</body>
+</html>

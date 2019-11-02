@@ -1,0 +1,215 @@
+/*Layout da página
+--------------------------------------------*/
+
+html, body {
+	margin:0;
+	height:100%;
+	font-family:'Arial';
+}
+
+h1, h2, h3, h4, h5, h6 {
+	margin-top:0;
+	margin-bottom:0;
+}
+
+.conteudo {
+	height:100%;
+}
+
+#logo {
+	float:left;
+}
+
+#controles {
+	font-size:14px;
+	padding:5px;
+}
+
+#controles #botoes {
+	margin-top:5px;
+}
+
+#area-principal {
+	width:100%;
+	height:70%;
+}
+
+#coluna-esquerda {
+	width:25%;
+	background-color:#DBB600;
+	height:100%;
+	float:left;
+}
+
+#coluna-meio {
+	width:60%;
+	height:100%;
+	float:left;
+	display:block;
+}
+
+#coluna-direita {
+	width:15%;
+	float:left;
+	display:block;
+	height:100%;
+}
+
+#barra-inferior {
+	width:100%;
+	background-color:#303030;
+	color:#FFF;
+	height:20%;
+	display:flex;
+	flex-direction:row;
+}
+
+#barra-superior {
+	width:100%;
+	background-color:#DBB600;
+	color:#FFF;
+	height:10%;
+}
+
+#barra-inferior #campo {
+	margin-right:10px;
+	min-width:50px;
+}
+
+#barra-inferior label {
+	display:block;
+}
+
+#barra-inferior label.label-checkbox {
+	display:inline;
+}
+
+/*Código
+--------------------------------------------*/
+
+#codigo {
+	font-family:'Courier New';
+	font-size:13px;
+	height:100%;
+	background-color:#FFF;
+	overflow-y:scroll;
+	word-break:break-all;
+	padding:0;
+}
+
+#codigo p {
+	margin-top:5px;
+	margin-bottom:5px;
+	padding:1px 0 1px 0;
+}
+
+#codigo p.marcado {
+	background-color:#DBB600;
+	color:#FFF;
+}
+
+#codigo .funcao {
+	margin:0 0 10px 0;
+}
+
+/*Layout do SVG*
+--------------------------------------------*/
+
+#lista {
+	height:100%;
+	width:100%;
+}
+
+#lista text {
+	font-family:"Arial";
+	font-size:16px;
+	font-weight:bold;
+}
+
+#lista text.ponteiro-variavel {
+	font-size:14px;
+	color:#F00;
+}
+
+
+/*Layout da área de memória*/
+
+#memoria {
+	border-left:2px solid #DDD;
+	height:calc(100% - 10px);
+	padding:5px;
+	overflow-y:auto;
+	font-weight:bold;
+}
+
+.area-memoria {
+	width:100%;
+	height:60px;
+}
+
+.numero-area-memoria {
+	float:left;
+	margin-top:-7px;
+}
+
+.conteudo-area-memoria {
+	border:3px solid #000;
+	width:73%;
+	margin-left:2%;
+	height:100%;
+	float:left;
+	position:relative;
+}
+
+.conteudo-area-memoria .valor-memoria {
+	font-size:20px;
+	text-align:center;
+	position:absolute;
+	width:100%;
+	top:20px;
+	z-index:1;
+}
+
+.linha-memoria-1, .linha-memoria-2, .linha-memoria-3 {
+	position:absolute;
+	width:100%;
+	left:0;
+	border:1px solid #DDD;
+	margin:0;
+	z-index:-1;
+}
+
+.linha-memoria-1 {
+	top:15px;
+}
+
+.linha-memoria-2 {
+	top:30px;
+}
+
+.linha-memoria-3 {
+	top:45px;
+}
+
+.titulo-memoria {
+	color:#00F;
+	font-size:10px;
+	width:100%;
+	text-align:center;
+	position:absolute;
+}
+
+
+/*Layout das caixas de diálogo*/
+
+.dialogo {
+	display:none;
+}
+
+.dialogo label {
+	display:block;
+}
+
+.insercao-meio {
+	display:none;
+}
