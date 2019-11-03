@@ -9,11 +9,9 @@
 $(document).ready(
 	function() {
 		var quant_nos = 0; // Quantidade de nós na lista.
-		var lista = null; // Primeiro elemento da lista.
-		var pos_inicial_padrao = 30; // Posição padrão para inserção do primeiro elemento criado em cada lista no eixo x.
-		var pos_inicial = pos_inicial_padrao; // Posição do primeiro elemento da lista no eixo x, inicialmente igual à posição padrão, porém pode ser alterada no decorrer do código devido a estruturas que necessitam de mais espaço no início.
-		var larg_no = 60; // Largura padrão da representação gráfica dos nós.
-		var alt_no = 40; // Altura padrão da representação gráfica dos nós.
+		var lista = null; // Primeiro elemento da lista.		
+		var larg_no = 50; // Largura padrão da representação gráfica dos nós.
+		var alt_no = 50; // Altura padrão da representação gráfica dos nós.
 		var dist_padrao = larg_no + 25; // Distância padrão entre os elementos da lista, contada a partir do início do retângulo anterior (largura do nó + 20 pixels de largura da seta + 5 pixels de largura do marcador da seta).
 		var tipo_lista = 'lse'; // Define o tipo da lista a ser utilizada. Por padrão, o tipo de lista selecionado é a lista simplesmente encadeada desordenada.
 		var pausa = false; // Define se a execução está pausada ou não.
@@ -35,7 +33,10 @@ $(document).ready(
 		
 		var pos_y = altura_svg/2; // Altura padrão dos retângulos que representam os nós (metade da altura do elemento SVG).
 		
-		var meio_x = largura_svg/2; // Determina o centro do eixo x
+        var meio_x = largura_svg / 2; // Determina o centro do eixo x
+
+        var pos_inicial_padrao = meio_x; // Posição padrão para inserção do primeiro elemento criado em cada lista no eixo x.
+        var pos_inicial = pos_inicial_padrao; // Posição do primeiro elemento da lista no eixo x, inicialmente igual à posição padrão, porém pode ser alterada no decorrer do código devido a estruturas que necessitam de mais espaço no início.
 		
 		var marker_seta = svg.marker(5, 5, function(add) {
 		  add.path('M0 0 L5 2 L0 5').fill('#000');
@@ -93,9 +94,9 @@ $(document).ready(
 		*/
 		function ElementosSVGLista() { //Estrutura para armazenar os elementos gráficos SVG referentes à lista, para permitir a manipulação posterior
 			this.texto_inicio; // Elemento do texto com o nome da variável que aponta para o primeiro elemento da lista, para representação do primeiro elemento graficamente
-			this.texto_fim; // Elemento do texto com o nome da variável que aponta para o primeiro elemento da lista, para representação do primeiro elemento graficamente
+			this.texto_fim; // Elemento do texto com o nome da variável que aponta para o último elemento da lista, para representação do primeiro elemento graficamente
 			this.seta_inicio; // Elemento da seta que faz com que a representação do primeiro elemento da variável aponte para o valor NULL ou para o primeiro elemento da lista
-			this.seta_fim; // Elemento da seta que faz com que a representação do primeiro elemento da variável aponte para o valor NULL ou para o primeiro elemento da lista
+			this.seta_fim; // Elemento da seta que faz com que a representação do último elemento da variável aponte para o valor NULL ou para o último elemento da lista
 			this.texto_nulo_1; // Elemento do texto com valor NULL, que pode ser apontado pela variável do primeiro elemento ou pelo último elemento da lista
 			this.texto_nulo_2; // Elemento do texto com valor NULL, exclusivamente para ser apontado pelo primeiro elemento em listas duplamente encadeadas.
 			this.pont_anterior; // Elemento do texto que indica o nó que se encontra na variável "ant" enquanto se percorre a lista
@@ -508,11 +509,11 @@ $(document).ready(
 				aux_lista.elem_svg.retangulo1.animate(500).move(aux_lista.x,aux_lista.y);
 					
 				if (tipo_lista != 'lde') {
-					aux_lista.elem_svg.retangulo2.animate(500).move(aux_lista.x, aux_lista.y); // Os dois retângulos são movidos para 10 pixels abaixo da parte inferior dos outros nós, e para a posição que ocupará no eixo X (posição do nó que ocupava anteriormente a posição, ou posição inicial no caso de uma inserção no início)
+					//aux_lista.elem_svg.retangulo2.animate(500).move(aux_lista.x, aux_lista.y); // Os dois retângulos são movidos para 10 pixels abaixo da parte inferior dos outros nós, e para a posição que ocupará no eixo X (posição do nó que ocupava anteriormente a posição, ou posição inicial no caso de uma inserção no início)
 					aux_lista.elem_svg.texto.animate(500).move(aux_lista.x + 10, aux_lista.y + 5); // O texto é movido para a nova posição do nó
 				}
 				else {
-					aux_lista.elem_svg.retangulo2.animate(500).move(aux_lista.x + (larg_no * 0.18), aux_lista.y);
+					//aux_lista.elem_svg.retangulo2.animate(500).move(aux_lista.x + (larg_no * 0.18), aux_lista.y);
 					aux_lista.elem_svg.texto.animate(500).move(aux_lista.x + 15, aux_lista.y + 5); // O texto é movido para a nova posição do nó
 				}
 				
@@ -567,8 +568,8 @@ $(document).ready(
 					if (tipo_lista == 'fila') {
 						var medidas_texto_fim = lista.elem_svg.texto_fim.bbox();
 						if (lista.quant_nos > 1) {
-							lista.elem_svg.texto_fim.animate(500).move(medidas_texto_fim.x - dist_padrao, medidas_texto_fim.y)
-							lista.elem_svg.seta_fim.animate(500).move(medidas_texto_fim.x - dist_padrao + (medidas_texto_fim.width/2), medidas_texto_fim.y + medidas_texto_fim.height)
+                            lista.elem_svg.texto_fim.animate(500).move(medidas_texto_fim.x - dist_padrao, medidas_texto_fim.y);
+                            lista.elem_svg.seta_fim.animate(500).move(medidas_texto_fim.x - dist_padrao + (medidas_texto_fim.width / 2), medidas_texto_fim.y + medidas_texto_fim.height);
 						}
 					}
 				}
@@ -587,7 +588,7 @@ $(document).ready(
 				while (aux_lista != null) {
 					aux_lista.elem_svg.retangulo1.fill('#FFFFFF');
 					aux_lista.elem_svg.retangulo1.stroke('#000');
-					aux_lista.elem_svg.retangulo2.stroke('#000');
+					//aux_lista.elem_svg.retangulo2.stroke('#000');
 					aux_lista = aux_lista.prox_no;
 				}
 			}
@@ -758,20 +759,20 @@ $(document).ready(
 				var texto_primeiro, texto_quantidade;
 				
 				switch (tipo_lista) {
-				case 'lse':
-				case 'lse_ord':
-				case 'lde':
-					texto_primeiro = 'l->prim';
-					texto_quantidade = 'l->qtd';
-					break;
-				case 'pilha':
-					texto_primeiro = 'p->topo';
-					texto_quantidade = 'p->qtd';
-					break;
-				case 'fila':
-					texto_primeiro = 'f->prim';
-					texto_quantidade = 'f->qtd';
-					break;
+				    case 'lse':
+				    case 'lse_ord':
+				    case 'lde':
+				    	texto_primeiro = 'l->prim';
+				    	texto_quantidade = 'l->qtd';
+				    	break;
+				    case 'pilha':
+				    	texto_primeiro = 'p->topo';
+				    	texto_quantidade = 'p->qtd';
+				    	break;
+				    case 'fila':
+				    	texto_primeiro = 'f->prim';
+				    	texto_quantidade = 'f->qtd';
+				    	break;
 				}
 				
 				lista.elem_svg.texto_inicio = svg.plain(texto_primeiro);
@@ -1042,7 +1043,7 @@ $(document).ready(
 					removerCores();
 					if (no_recente != null) { // Retorna a borda vermelha do último nó utilizado para a cor preta, caso não seja a primeira execução
 						no_recente.elem_svg.retangulo1.stroke('#000');
-						no_recente.elem_svg.retangulo2.stroke('#000');
+						//no_recente.elem_svg.retangulo2.stroke('#000');
 					}
 					
 					//pos_x = 0;
@@ -1073,16 +1074,18 @@ $(document).ready(
 					
 					marcarLinha(1); // Linha de criação do nó
 					svg_novo_no = new ElementosSVGNo(); // É criado o objeto que contém os elementos SVG pertencentes ao nó
-					svg_novo_no.retangulo1 = svg.rect(larg_no,alt_no); // É criado o retângulo mais externo do nó
+					//svg_novo_no.retangulo1 = svg.rect(larg_no,alt_no); // É criado o retângulo mais externo do nó
+                    svg_novo_no.retangulo1 = svg.circle(larg_no); // É criado o retângulo mais externo do nó
 					svg_novo_no.retangulo1.move(meio_x,pos_y - 90); // O retângulo mais externo do nó é movido para o meio da tela na horizontal, e 90 pixels acima da área onde ficam os nós já inseridos, na vertical
-					if (tipo_lista != 'lde') { // Se o tipo de lista não for "lista duplamente encadeada"
+                    /*
+                    if (tipo_lista != 'lde') { // Se o tipo de lista não for "lista duplamente encadeada"
 						svg_novo_no.retangulo2 = svg.rect(larg_no - (larg_no * 0.3),alt_no); // É criado o retângulo mais interno do nó, feito para que apareça a linha que indica o ponteiro para o próximo elemento, com 70% do tamanho do retângulo mais externo
 						svg_novo_no.retangulo2.move(meio_x,pos_y - 90); // O retângulo mais interno é movido para a posição inicial, igual à do retângulo mais externo
 					}
 					else {
 						svg_novo_no.retangulo2 = svg.rect(larg_no - (larg_no * 0.35),alt_no); // É criado o retângulo mais interno do nó, feito para que apareça a linha que indica o ponteiro para o próximo elemento, com 65% do tamanho do retângulo mais externo
 						svg_novo_no.retangulo2.move(meio_x + (larg_no*0.18),pos_y - 90); // O retângulo mais interno é movido para a posição inicial acrescida de 18% da largura do retângulo mais externo, para que fique no meio do nó e dê o efeito das duas linhas que indicam os ponteiros anterior e próximo
-					}
+					}*/
 					
 					var borda_memoria = '3px solid #F00'; // É definido o padrão da borda vermelha das áreas de memória recém-alocadas, para evitar repetições
 					var qnt_memoria_no = (tipo_lista != 'lde' ? 2 : 3);
@@ -1107,7 +1110,7 @@ $(document).ready(
 					}
 					
 					svg_novo_no.retangulo1.fill('#FFF').stroke('#F00').attr('stroke-width',2).animate(250).fill('#0C0').animate(250).fill('#FFF'); // O retângulo mais externo recebe borda vermelha, para associar com a área de memória alocada e preenchimento verde, que se torna branco logo em seguida
-					svg_novo_no.retangulo2.fill('transparent').stroke('#F00').attr('stroke-width',2); // Preenchimento transparente para que a cor do retângulo externo apareça e bordas vermelhas
+					//svg_novo_no.retangulo2.fill('transparent').stroke('#F00').attr('stroke-width',2); // Preenchimento transparente para que a cor do retângulo externo apareça e bordas vermelhas
 					await sleep(1000); // Pausa de 1 segundo (o tempo pode variar de acordo com a velocidade selecionada pelo usuário)
 					
 					marcarLinha(2); // Linha do if que verifica que o espaço de memória foi alocado. Não possui função prática no sistema, serve somente para representação.
@@ -1331,11 +1334,11 @@ $(document).ready(
 					svg_novo_no.retangulo1.animate(500).move(novo_no.x,pos_y + (alt_no + 10));
 					
 					if (tipo_lista != 'lde') {
-						svg_novo_no.retangulo2.animate(500).move(novo_no.x,pos_y + (alt_no + 10)); // Os dois retângulos são movidos para 10 pixels abaixo da parte inferior dos outros nós, e para a posição que ocupará no eixo X (posição do nó que ocupava anteriormente a posição, ou posição inicial no caso de uma inserção no início)
+						//svg_novo_no.retangulo2.animate(500).move(novo_no.x,pos_y + (alt_no + 10)); // Os dois retângulos são movidos para 10 pixels abaixo da parte inferior dos outros nós, e para a posição que ocupará no eixo X (posição do nó que ocupava anteriormente a posição, ou posição inicial no caso de uma inserção no início)
 						svg_novo_no.texto.animate(500).move(novo_no.x + 10,novo_no.y + (alt_no + 10) + 5); // O texto é movido para a nova posição do nó
 					}
 					else {
-						svg_novo_no.retangulo2.animate(500).move(novo_no.x + (larg_no * 0.18),pos_y + (alt_no + 10));
+						//svg_novo_no.retangulo2.animate(500).move(novo_no.x + (larg_no * 0.18),pos_y + (alt_no + 10));
 						svg_novo_no.texto.animate(500).move(novo_no.x + 15,novo_no.y + (alt_no + 10) + 5); // O texto é movido para a nova posição do nó
 					}
 					/*----------------------------------------------------------------------*/
@@ -1455,11 +1458,11 @@ $(document).ready(
 					svg_novo_no.retangulo1.animate(500).move(novo_no.x,pos_y);
 					
 					if (tipo_lista != 'lde') {
-						svg_novo_no.retangulo2.animate(500).move(novo_no.x,pos_y);
+						//svg_novo_no.retangulo2.animate(500).move(novo_no.x,pos_y);
 						svg_novo_no.texto.animate(500).move(novo_no.x + 10,novo_no.y + 5);
 					}
 					else {
-						svg_novo_no.retangulo2.animate(500).move(novo_no.x + (larg_no * 0.18),pos_y);
+						//svg_novo_no.retangulo2.animate(500).move(novo_no.x + (larg_no * 0.18),pos_y);
 						svg_novo_no.texto.animate(500).move(novo_no.x + 15,novo_no.y + 5);
 						svg_novo_no.seta_esquerda.animate(500).plot('M'+novo_no.x+' '+(y_seta_ant)+' L'+(novo_no.x-20)+' '+y_seta_ant);
 						if (novo_no.prox_no != null) {
@@ -1590,11 +1593,11 @@ $(document).ready(
 					no.elem_svg.retangulo1.animate(500).move(no.x, no.y+alt_no+10);
 					
 					if (tipo_lista != 'lde') {
-						no.elem_svg.retangulo2.animate(500).move(no.x, no.y  + (alt_no + 10)); // Os dois retângulos são movidos para 10 pixels abaixo da parte inferior dos outros nós, e para a posição que ocupará no eixo X (posição do nó que ocupava anteriormente a posição, ou posição inicial no caso de uma inserção no início)
+						//no.elem_svg.retangulo2.animate(500).move(no.x, no.y  + (alt_no + 10)); // Os dois retângulos são movidos para 10 pixels abaixo da parte inferior dos outros nós, e para a posição que ocupará no eixo X (posição do nó que ocupava anteriormente a posição, ou posição inicial no caso de uma inserção no início)
 						no.elem_svg.texto.animate(500).move(no.x + 10, no.y + (alt_no + 10) + 5); // O texto é movido para a nova posição do nó
 					}
 					else {
-						no.elem_svg.retangulo2.animate(500).move(no.x + (larg_no * 0.18), no.y + (alt_no + 10));
+						//no.elem_svg.retangulo2.animate(500).move(no.x + (larg_no * 0.18), no.y + (alt_no + 10));
 						no.elem_svg.texto.animate(500).move(no.x + 15, no.y + (alt_no + 10) + 5); // O texto é movido para a nova posição do nó
 					}
 					
@@ -1649,11 +1652,11 @@ $(document).ready(
 						no.elem_svg.retangulo1.animate(500).move(no.x, no.y+alt_no+10);
 					
 						if (tipo_lista != 'lde') {
-							no.elem_svg.retangulo2.animate(500).move(no.x, no.y  + (alt_no + 10)); // Os dois retângulos são movidos para 10 pixels abaixo da parte inferior dos outros nós, e para a posição que ocupará no eixo X (posição do nó que ocupava anteriormente a posição, ou posição inicial no caso de uma inserção no início)
+							//no.elem_svg.retangulo2.animate(500).move(no.x, no.y  + (alt_no + 10)); // Os dois retângulos são movidos para 10 pixels abaixo da parte inferior dos outros nós, e para a posição que ocupará no eixo X (posição do nó que ocupava anteriormente a posição, ou posição inicial no caso de uma inserção no início)
 							no.elem_svg.texto.animate(500).move(no.x + 10, no.y + (alt_no + 10) + 5); // O texto é movido para a nova posição do nó
 						}
 						else {
-							no.elem_svg.retangulo2.animate(500).move(no.x + (larg_no * 0.18), no.y + (alt_no + 10));
+							//no.elem_svg.retangulo2.animate(500).move(no.x + (larg_no * 0.18), no.y + (alt_no + 10));
 							no.elem_svg.texto.animate(500).move(no.x + 15, no.y + (alt_no + 10) + 5); // O texto é movido para a nova posição do nó
 						}
 						
