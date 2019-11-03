@@ -1,5 +1,5 @@
 function e_Arvore() {
-    return { raiz: null, quant_nos: null };
+    return { raiz: null, quantidade: 0 };
     /*this.raiz = null;  //Primeiro nó   
     this.quant_nos = 0; */
 }
@@ -11,42 +11,62 @@ function e_No(valor) {
     this.no_direita = null; */
 }
 
-function e_BuscaArvore(valorBusca,insere) {
+function e_BuscaArvore(valorBusca, operacao) {
+    var doDelete = {value:true};
     if (arvore.raiz === null) {
-        if (insere === true) {
+        if (operacao === 'I') {
             arvore.raiz = e_No(valorBusca);
-        }        
+            //arvore.quantidade++;
+        }
         return false;
     }
     else {
-        return e_BuscaNo(arvore.raiz, valorBusca, insere);
+        result = e_BuscaNo(arvore.raiz, valorBusca, operacao, doDelete);
+        if (doDelete.value === true && operacao === 'R') {
+            arvore.raiz = null;
+            doDelete.value = false;
+        }
+        return result;        
     }
 }
 
-function e_BuscaNo(No, valorBusca, insere) {
+function e_BuscaNo(No, valorBusca, operacao, doDelete) {
+    var result;
     if (No.valor === valorBusca) {
         return true;
     }
     else if (No.valor > valorBusca) {
         if (No.no_esquerda === null) {
-            if (insere === true) {
+            if (operacao === 'I') {
                 No.no_esquerda = e_No(valorBusca);
+                //arvore.quantidade++;
             }
             return false;
         }
         else {
-            return e_BuscaNo(No.no_esquerda, valorBusca, insere);
+            result = e_BuscaNo(No.no_esquerda, valorBusca, operacao, doDelete);
+            if (doDelete.value === true && operacao === 'R') {
+                No.no_esquerda = null;
+                doDelete.value = false;
+            }
+            return result;
         }
     }
     else if (No.valor < valorBusca) {
         if (No.no_direita === null) {
-            if (insere === true) {
+            if (operacao === 'I') {
                 No.no_direita = e_No(valorBusca);
+                //arvore.quantidade++;
             }
             return false;
         }
         else {
-            return e_BuscaNo(No.no_direita, valorBusca, insere);
+            result = e_BuscaNo(No.no_direita, valorBusca, operacao, doDelete);
+            if (doDelete.value === true && operacao === 'R') {
+                No.no_direita = null;
+                doDelete.value = false;
+            }
+            return result;
         }
     }
 }
@@ -56,21 +76,21 @@ function e_Imprimir_RED(No) {
         console.log(No.valor);
         e_Imprimir_RED(No.no_esquerda);
         e_Imprimir_RED(No.no_direita);
-    }    
+    }
 }
 
 function e_Imprimir_ERD(No) {
     if (No !== null) {
         e_Imprimir_ERD(No.no_esquerda);
-        console.log(No.valor);        
+        console.log(No.valor);
         e_Imprimir_ERD(No.no_direita);
-    }   
+    }
 }
 
 function e_Imprimir_EDR(No) {
     if (No !== null) {
-        e_Imprimir_EDR(No.no_esquerda);        
+        e_Imprimir_EDR(No.no_esquerda);
         e_Imprimir_EDR(No.no_direita);
         console.log(No.valor);
-    }   
+    }
 }

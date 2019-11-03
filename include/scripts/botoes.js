@@ -1,21 +1,64 @@
 function b_criar_click() {
     arvore = e_Arvore();
     b_desbloquearBotoes();
+    $('#remover').attr('disabled', 'disabled');
+    $('#imprimir').attr('disabled', 'disabled');
 }
 
 function b_pesquisar_click() {
-    var valorBusca = parseInt(prompt('Selecione o valor a pesquisar:', '0'));
-    if (isNaN(valorBusca)) {
-        alert('Não foi inserido um valor corretamente');
-    }
-    else {
-        if (e_BuscaArvore(valorBusca, false) === true) {
+    var valorBusca = valor_Usuario();
+    if (!isNaN(valor_Usuario())) {
+        if (e_BuscaArvore(valorBusca, 'P') === true) {
             alert('Sucesso! Foi encontrado!');
         }
         else {
             alert('Não foi encontrado');
         }
     }
+}
+
+function b_remover_click() {
+    var valorBusca = valor_Usuario();
+    if (!isNaN(valorBusca)) {
+        if (e_BuscaArvore(valorBusca, 'R') === true) {
+            alert('O valor foi removido com sucesso!');
+        }
+        else {
+            alert('O valor não foi removido, ele não existe na árvore!');
+        }
+    }
+    if (arvore.raiz === null) {
+        $('#remover').attr('disabled', 'disabled');
+        $('#imprimir').attr('disabled', 'disabled');
+    }
+}
+
+function b_adicionar_click() {
+    var valorBusca = valor_Usuario();
+    if (!isNaN(valorBusca)) {
+        if (e_BuscaArvore(valorBusca, 'I') === true) {
+            alert('O valor não foi inserido, ele já existe na árvore!');
+        }
+        else {
+            alert('O valor foi inserido com sucesso!');
+            b_desbloquearBotoes();
+        }
+    }
+}
+
+function b_limpar_click() {
+    arvore = e_Arvore();
+    $('#remover').attr('disabled', 'disabled');
+    $('#imprimir').attr('disabled', 'disabled');
+    console.clear();
+}
+
+function valor_Usuario() {
+    var valorBusca = parseInt(prompt('Selecione o valor a pesquisar:', '0'));
+    if (isNaN(valorBusca)) {
+        alert('Não foi inserido um valor corretamente');
+    }
+    return valorBusca;
 }
 
 function b_imprimir_click() {
@@ -28,14 +71,16 @@ function b_imprimir_click() {
 }
 
 function b_gerar_click() {
-    ListaAleatoria(maxItems);    
-    /*e_BuscaArvore(4, true);
-    e_BuscaArvore(2, true);
-    e_BuscaArvore(6, true);
-    e_BuscaArvore(1, true);
-    e_BuscaArvore(3, true);
-    e_BuscaArvore(5, true);
-    e_BuscaArvore(7, true);*/
+    arvore = e_Arvore();
+    //ListaAleatoria(maxItems);      
+    e_BuscaArvore(4, 'I');
+    e_BuscaArvore(2, 'I');
+    e_BuscaArvore(6, 'I');
+    e_BuscaArvore(1, 'I');
+    e_BuscaArvore(3, 'I');
+    e_BuscaArvore(5, 'I');
+    e_BuscaArvore(7, 'I');
+    b_desbloquearBotoes();
 }
 
 
