@@ -1,15 +1,23 @@
 function e_Arvore() {
-    return { raiz: null, quantidade: 0 };
+    return { raiz: null, quantidade: 0,svg_arvpont: null};
     /*this.raiz = null;  //Primeiro nó   
     this.quant_nos = 0; */
 }
 
+
+
 function e_No(valor) {
-    return { valor: valor, no_esquerda: null, no_direita: null };
+    return {
+        valor: valor, no_esquerda: null,
+        no_direita: null, svg_esquerda: null,
+        svg_direita: null, x: null, y:null
+    };
     /*this.valor = valor; 
     this.no_esquerda = null; 
     this.no_direita = null; */
 }
+
+
 
 function e_BuscaArvore(valorBusca, operacao) {
     var doDelete = {value:true};
