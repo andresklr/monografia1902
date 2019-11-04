@@ -72,14 +72,22 @@ function b_imprimir_click() {
 
 function b_gerar_click() {
     arvore = e_Arvore();
-    ListaAleatoria(maxItems);      
-    /*e_BuscaArvore(4, 'I');
-    e_BuscaArvore(2, 'I');
-    e_BuscaArvore(6, 'I');
-    e_BuscaArvore(1, 'I');
-    e_BuscaArvore(3, 'I');
+    //ListaAleatoria(maxItems);      
+    e_BuscaArvore(10, 'I');
     e_BuscaArvore(5, 'I');
-    e_BuscaArvore(7, 'I');*/
+    e_BuscaArvore(15, 'I');
+    e_BuscaArvore(3, 'I');
+    e_BuscaArvore(7, 'I');
+    e_BuscaArvore(2, 'I');
+    e_BuscaArvore(4, 'I');
+    e_BuscaArvore(6, 'I');
+    e_BuscaArvore(8, 'I');
+    e_BuscaArvore(13, 'I');
+    e_BuscaArvore(18, 'I');
+    e_BuscaArvore(12, 'I');
+    e_BuscaArvore(14, 'I');
+    e_BuscaArvore(16, 'I');
+    e_BuscaArvore(19, 'I');
     b_desbloquearBotoes();    
 }
 
@@ -87,7 +95,7 @@ function b_gerar_click() {
 function ListaAleatoria(quantity) {
     var numbers = [];
     while (quantity > 0) {
-        var n = Math.floor((Math.random() * 1000) + 1);
+        var n = Math.floor((Math.random() * maxItems) + 1);
         if (numbers.includes(n) === false) {
             e_BuscaArvore(n, 'I');
             numbers.push(n);

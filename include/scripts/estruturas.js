@@ -19,7 +19,7 @@ function e_No(valor) {
 function e_graficosNo(No) {    
     No.svg_nopont = svg_criarGraficos(0, 0);
     var h = e_Altura_Arvore(arvore.raiz, 0);
-    svg_mover_arvore(h+1);
+    svg_mover_arvore(h+2);
 }
 
 function e_BuscaArvore(valorBusca, operacao) {
