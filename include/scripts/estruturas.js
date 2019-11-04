@@ -24,6 +24,7 @@ function e_BuscaArvore(valorBusca, operacao) {
     if (arvore.raiz === null) {
         if (operacao === 'I') {
             arvore.raiz = e_No(valorBusca);
+            arvore.svg_arvpont = svg_circulo(xinicial, yinicial);
             //arvore.quantidade++;
         }
         return false;
