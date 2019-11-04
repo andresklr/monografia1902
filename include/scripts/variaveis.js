@@ -4,4 +4,8 @@ var larguraNo = 50;
 var xinicial;
 var yinicial;
 var espacamento = 0.65;
-var velocidade = 500;
+var velocidade = 1000;
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}

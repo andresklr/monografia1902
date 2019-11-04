@@ -85,25 +85,40 @@ function b_imprimir_click() {
     e_Imprimir_EDR(arvore.raiz);
 }
 
-function b_gerar_click() {
+async function b_gerar_click() {
     main_initiate();
     criar_arvore();
     //ListaAleatoria(maxItems);      
     e_BuscaArvore(10, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(5, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(15, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(3, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(7, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(2, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(4, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(6, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(8, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(13, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(18, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(12, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(14, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(16, 'I');
+    await sleep(velocidade);
     e_BuscaArvore(19, 'I');
+    await sleep(velocidade);
     b_desbloquearBotoes();    
 }
 
