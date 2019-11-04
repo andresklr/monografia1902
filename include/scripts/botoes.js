@@ -1,4 +1,8 @@
 function b_criar_click() {
+    criar_arvore();
+}
+
+function criar_arvore() {
     arvore = e_Arvore();
     b_desbloquearBotoes();
     $('#remover').attr('disabled', 'disabled');
@@ -47,9 +51,8 @@ function b_adicionar_click() {
 }
 
 function b_limpar_click() {
-    arvore = e_Arvore();
-    $('#remover').attr('disabled', 'disabled');
-    $('#imprimir').attr('disabled', 'disabled');
+    main_initiate();
+    criar_arvore();
     console.clear();
 }
 
@@ -71,7 +74,8 @@ function b_imprimir_click() {
 }
 
 function b_gerar_click() {
-    arvore = e_Arvore();
+    main_initiate();
+    criar_arvore();
     //ListaAleatoria(maxItems);      
     e_BuscaArvore(10, 'I');
     e_BuscaArvore(5, 'I');

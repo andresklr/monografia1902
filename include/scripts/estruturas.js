@@ -1,5 +1,5 @@
-function e_Arvore() {
-    return { raiz: null, altura: 0};
+function e_Arvore() {         
+    return { raiz: null, altura: 0, svg_arvpont: svg_firstNode()};
     /*this.raiz = null;  //Primeiro nó   
     this.quant_nos = 0; */
 }
