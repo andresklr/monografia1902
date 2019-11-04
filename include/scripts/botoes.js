@@ -80,8 +80,7 @@ function b_gerar_click() {
     e_BuscaArvore(3, 'I');
     e_BuscaArvore(5, 'I');
     e_BuscaArvore(7, 'I');*/
-    b_desbloquearBotoes();
-    alert('A altura da árvore é: ' + e_Altura_Arvore(arvore.raiz,0));
+    b_desbloquearBotoes();    
 }
 
 

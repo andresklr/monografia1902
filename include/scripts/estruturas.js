@@ -1,5 +1,5 @@
 function e_Arvore() {
-    return { raiz: null, quantidade: 0};
+    return { raiz: null, altura: 0};
     /*this.raiz = null;  //Primeiro nó   
     this.quant_nos = 0; */
 }
@@ -16,15 +16,19 @@ function e_No(valor) {
     this.no_direita = null; */
 }
 
-
+function e_graficosNo(No) {    
+    No.svg_nopont = svg_criarGraficos(0, 0);
+    var h = e_Altura_Arvore(arvore.raiz, 0);
+    svg_mover_arvore(h+1);
+}
 
 function e_BuscaArvore(valorBusca, operacao) {
     var doDelete = {value:true};
     if (arvore.raiz === null) {
         if (operacao === 'I') {
             arvore.raiz = e_No(valorBusca);
-            arvore.raiz.svg_nopont = svg_circulo(xinicial, yinicial);
-            //arvore.quantidade++;
+            e_graficosNo(arvore.raiz);
+            //arvore.raiz.svg_nopont = svg_criarGraficos(xinicial, yinicial);                                              
         }
         return false;
     }
@@ -47,8 +51,8 @@ function e_BuscaNo(No, valorBusca, operacao, doDelete) {
         if (No.no_esquerda === null) {
             if (operacao === 'I') {
                 No.no_esquerda = e_No(valorBusca);
-                No.no_esquerda.svg_nopont = svg_circulo(No.svg_nopont.directions.x2l, No.svg_nopont.directions.y2);
-                //arvore.quantidade++;
+                //No.no_esquerda.svg_nopont = svg_criarGraficos(No.svg_nopont.directions.x2l, No.svg_nopont.directions.y2);                
+                e_graficosNo(No.no_esquerda);                
             }
             return false;
         }
@@ -65,8 +69,8 @@ function e_BuscaNo(No, valorBusca, operacao, doDelete) {
         if (No.no_direita === null) {
             if (operacao === 'I') {
                 No.no_direita = e_No(valorBusca);
-                No.no_direita.svg_nopont = svg_circulo(No.svg_nopont.directions.x2r, No.svg_nopont.directions.y2);
-                //arvore.quantidade++;
+                //No.no_direita.svg_nopont = svg_criarGraficos(No.svg_nopont.directions.x2r, No.svg_nopont.directions.y2);                
+                e_graficosNo(No.no_direita);                
             }
             return false;
         }
