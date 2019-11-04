@@ -16,4 +16,7 @@ function main_initiate() {
 
     b_bloquearBotoes();
     $('#criar').removeAttr('disabled');
+
+    $('#log').empty();
+//    $('#log').append("<br/><br/><br/><br/><br/><br/>");
 }

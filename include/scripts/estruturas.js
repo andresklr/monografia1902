@@ -1,7 +1,5 @@
 function e_Arvore() {         
-    return { raiz: null, altura: 0, svg_arvpont: svg_firstNode()};
-    /*this.raiz = null;  //Primeiro nó   
-    this.quant_nos = 0; */
+    return { raiz: null, altura: 0, svg_arvpont: svg_firstNode()};    
 }
 
 
@@ -10,14 +8,11 @@ function e_No(valor) {
     return {
         valor: valor, no_esquerda: null,
         no_direita: null, svg_nopont:null
-    };
-    /*this.valor = valor; 
-    this.no_esquerda = null; 
-    this.no_direita = null; */
+    };    
 }
 
-function e_graficosNo(No) {    
-    No.svg_nopont = svg_criarGraficos(0, 0);
+function e_graficosNo(No) {
+    No.svg_nopont = svg_criarGraficos(0, 0, No.valor);
     var h = e_Altura_Arvore(arvore.raiz, 0);
     svg_mover_arvore(h+2);
 }
@@ -27,8 +22,7 @@ function e_BuscaArvore(valorBusca, operacao) {
     if (arvore.raiz === null) {
         if (operacao === 'I') {
             arvore.raiz = e_No(valorBusca);
-            e_graficosNo(arvore.raiz);
-            //arvore.raiz.svg_nopont = svg_criarGraficos(xinicial, yinicial);                                              
+            e_graficosNo(arvore.raiz);            
         }
         return false;
     }
@@ -50,8 +44,7 @@ function e_BuscaNo(No, valorBusca, operacao, doDelete) {
     else if (No.valor > valorBusca) {
         if (No.no_esquerda === null) {
             if (operacao === 'I') {
-                No.no_esquerda = e_No(valorBusca);
-                //No.no_esquerda.svg_nopont = svg_criarGraficos(No.svg_nopont.directions.x2l, No.svg_nopont.directions.y2);                
+                No.no_esquerda = e_No(valorBusca);                
                 e_graficosNo(No.no_esquerda);                
             }
             return false;
@@ -68,8 +61,7 @@ function e_BuscaNo(No, valorBusca, operacao, doDelete) {
     else if (No.valor < valorBusca) {
         if (No.no_direita === null) {
             if (operacao === 'I') {
-                No.no_direita = e_No(valorBusca);
-                //No.no_direita.svg_nopont = svg_criarGraficos(No.svg_nopont.directions.x2r, No.svg_nopont.directions.y2);                
+                No.no_direita = e_No(valorBusca);                
                 e_graficosNo(No.no_direita);                
             }
             return false;
@@ -98,7 +90,7 @@ function e_Altura_Arvore(No,h) {
 
 function e_Imprimir_RED(No) {
     if (No !== null) {
-        console.log(No.valor);
+        b_logIndex(", " + No.valor,false);
         e_Imprimir_RED(No.no_esquerda);
         e_Imprimir_RED(No.no_direita);
     }
@@ -107,7 +99,7 @@ function e_Imprimir_RED(No) {
 function e_Imprimir_ERD(No) {
     if (No !== null) {
         e_Imprimir_ERD(No.no_esquerda);
-        console.log(No.valor);
+        b_logIndex(", " + No.valor, false);
         e_Imprimir_ERD(No.no_direita);
     }
 }
@@ -116,6 +108,6 @@ function e_Imprimir_EDR(No) {
     if (No !== null) {
         e_Imprimir_EDR(No.no_esquerda);
         e_Imprimir_EDR(No.no_direita);
-        console.log(No.valor);
+        b_logIndex(", " + No.valor, false);
     }
 }

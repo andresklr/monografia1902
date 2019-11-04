@@ -21,6 +21,14 @@ function b_pesquisar_click() {
     }
 }
 
+function b_altura_click() {
+    var h = e_Altura_Arvore(arvore.raiz, 0);
+    if (h === undefined) {
+        h = 0;
+    }
+    alert('A altura da árvore é: ' + h);
+}
+
 function b_remover_click() {
     var valorBusca = valor_Usuario();
     if (!isNaN(valorBusca)) {
@@ -44,7 +52,7 @@ function b_adicionar_click() {
             alert('O valor não foi inserido, ele já existe na árvore!');
         }
         else {
-            alert('O valor foi inserido com sucesso!');
+            //alert('O valor foi inserido com sucesso!');
             b_desbloquearBotoes();
         }
     }
@@ -64,12 +72,16 @@ function valor_Usuario() {
     return valorBusca;
 }
 
+function b_logIndex(message, novalinha) {
+    $('#log').append((novalinha === true ? "<br/>" : "") + message);
+}
+
 function b_imprimir_click() {
-    console.log('RED');
-    e_Imprimir_RED(arvore.raiz);
-    console.log('ERD');
+    b_logIndex("Impressão RED (Pré-Ordem)",true);    
+    e_Imprimir_RED(arvore.raiz);    
+    b_logIndex("Impressão ERD (Em-Ordem)",true);
     e_Imprimir_ERD(arvore.raiz);
-    console.log('EDR');
+    b_logIndex("Impressão EDR (Pós-Ordem)",true);
     e_Imprimir_EDR(arvore.raiz);
 }
 
@@ -111,6 +123,7 @@ function ListaAleatoria(quantity) {
 
 function b_bloquearBotoes() {
     $('#adicionar').attr('disabled', 'disabled');
+    $('#altura').attr('disabled', 'disabled');
     $('#remover').attr('disabled', 'disabled');
     $('#pesquisar').attr('disabled', 'disabled');
     $('#gerar').attr('disabled', 'disabled');
@@ -120,6 +133,7 @@ function b_bloquearBotoes() {
 
 function b_desbloquearBotoes() {
     $('#adicionar').removeAttr('disabled');
+    $('#altura').removeAttr('disabled');
     $('#remover').removeAttr('disabled');
     $('#pesquisar').removeAttr('disabled');
     $('#gerar').removeAttr('disabled');

@@ -31,28 +31,21 @@ function svg_firstNode() {
 
 }
 
-function svg_criarGraficos(x, y) {
+function svg_criarGraficos(x, y,valor) {
     var circulo = svg.circle(larguraNo);
     circulo.fill('#FFFFFF');
-    circulo.stroke('#000000');
-    //circulo.animate(1000).move(x, y); 
+    circulo.stroke('#000000');    
+
+    var numero = svg.plain(valor);    
 
     y += larguraNo;
 
     var x2l = x - (larguraNo);
     var x2r = x + (larguraNo * 1.5);
-    var y2 = y + (larguraNo * 0.866);
+    var y2 = y + (larguraNo * 0.866);    
 
-    /*var linhaesq = svg.line(x, y, x2l, y2);
-    linhaesq.stroke('#000000');
-
-    var linhadir = svg.line(x + larguraNo, y, x2r + larguraNo, y2);
-    linhadir.stroke('#000000');*/
-    //linhadir.animate(1000).move(0, 0, x2l, y2);
-
-    var result = {
-        //circulo: circulo, linha_esq: linhaesq, linha_dir: linhadir, directions: { x1: x, y1: y, x2l: x2l, x2r: x2r, y2: y2 }
-        circulo: circulo, linha_esq: null, linha_dir: null,null_esq:null,null_dir:null, directions: { x1: x, y1: y, x2l: x2l, x2r: x2r, y2: y2 }
+    var result = {        
+        circulo: circulo,numero:numero, linha_esq: null, linha_dir: null,null_esq:null,null_dir:null, directions: { x1: x, y1: y, x2l: x2l, x2r: x2r, y2: y2 }
     };
 
     return result;
@@ -98,6 +91,16 @@ function move(No) {
     var directions = No.svg_nopont.directions;
     No.svg_nopont.circulo.animate(velocidade).move(directions.x1, directions.y1);
 
+    var numeroDimensions = document.getElementById(No.svg_nopont.numero.node.id).getBoundingClientRect();
+
+    var heightNumero = numeroDimensions.height;
+    var widthNumero = numeroDimensions.width;
+
+    var tx = directions.x1 + ((larguraNo - widthNumero) / 2);
+    var ty = directions.y1 + ((larguraNo - heightNumero) / 2);
+    
+    No.svg_nopont.numero.animate(velocidade).move(tx, ty);
+
     remove(No.svg_nopont.linha_dir);
     remove(No.svg_nopont.linha_esq);
 
@@ -111,9 +114,7 @@ function move(No) {
 
     var linhadir = svg.line(directions.x1 + larguraNo, directions.y1 + larguraNo, lx2r, ly2);
     linhadir.stroke('#000000');
-    No.svg_nopont.linha_dir = linhadir;
-    //No.svg_nopont.linha_esq.animate(1000).move(directions.x1 - larguraNo, directions.y1 + larguraNo, directions.x2l, directions.y2 + larguraNo);
-    //No.svg_nopont.linha_dir.animate(1000).move(directions.x1 + larguraNo, directions.y1 + larguraNo, directions.x2r, directions.y2 + larguraNo);
+    No.svg_nopont.linha_dir = linhadir;    
 
     remove(No.svg_nopont.null_esq);
     No.svg_nopont.null_esq = null;
