@@ -4,4 +4,4 @@ var larguraNo = 50;
 var xinicial;
 var yinicial;
 var espacamento = 0.65;
-var velocidade = 250;
+var velocidade = 500;

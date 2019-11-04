@@ -11,10 +11,10 @@ function e_No(valor) {
     };    
 }
 
-function e_graficosNo(No) {
+function e_graficosNo(No,animate) {
     No.svg_nopont = svg_criarGraficos(0, 0, No.valor);
     var h = e_Altura_Arvore(arvore.raiz, 0);
-    svg_mover_arvore(h+2);
+    svg_mover_arvore(h+2,animate);
 }
 
 function e_BuscaArvore(valorBusca, operacao) {
@@ -22,7 +22,7 @@ function e_BuscaArvore(valorBusca, operacao) {
     if (arvore.raiz === null) {
         if (operacao === 'I') {
             arvore.raiz = e_No(valorBusca);
-            e_graficosNo(arvore.raiz);            
+            e_graficosNo(arvore.raiz,true);            
         }
         return false;
     }
@@ -31,6 +31,8 @@ function e_BuscaArvore(valorBusca, operacao) {
         if (doDelete.value === true && operacao === 'R') {
             arvore.raiz = null;
             doDelete.value = false;
+            main_initiate();
+            criar_arvore();
         }
         return result;        
     }
@@ -45,15 +47,17 @@ function e_BuscaNo(No, valorBusca, operacao, doDelete) {
         if (No.no_esquerda === null) {
             if (operacao === 'I') {
                 No.no_esquerda = e_No(valorBusca);                
-                e_graficosNo(No.no_esquerda);                
+                e_graficosNo(No.no_esquerda,true);                
             }
             return false;
         }
         else {
             result = e_BuscaNo(No.no_esquerda, valorBusca, operacao, doDelete);
             if (doDelete.value === true && operacao === 'R') {
+                svg_removeSvgs(No.no_esquerda);
                 No.no_esquerda = null;
-                doDelete.value = false;
+                e_graficosNo(No,false); 
+                doDelete.value = false;                
             }
             return result;
         }
@@ -62,14 +66,16 @@ function e_BuscaNo(No, valorBusca, operacao, doDelete) {
         if (No.no_direita === null) {
             if (operacao === 'I') {
                 No.no_direita = e_No(valorBusca);                
-                e_graficosNo(No.no_direita);                
+                e_graficosNo(No.no_direita,true);                
             }
             return false;
         }
         else {
             result = e_BuscaNo(No.no_direita, valorBusca, operacao, doDelete);
             if (doDelete.value === true && operacao === 'R') {
+                svg_removeSvgs(No.no_direita);
                 No.no_direita = null;
+                e_graficosNo(No,false);   
                 doDelete.value = false;
             }
             return result;

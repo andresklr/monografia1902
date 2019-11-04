@@ -11,7 +11,7 @@ function criar_arvore() {
 
 function b_pesquisar_click() {
     var valorBusca = valor_Usuario();
-    if (!isNaN(valor_Usuario())) {
+    if (!isNaN(valorBusca)) {
         if (e_BuscaArvore(valorBusca, 'P') === true) {
             alert('Sucesso! Foi encontrado!');
         }

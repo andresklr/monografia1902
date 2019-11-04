@@ -5,7 +5,7 @@ var altura_svg;
 
 function svg_firstNode() {
     var ponteiro = svg.plain("a->prim");
-    ponteiro.move(xinicial, yinicial - larguraNo);    
+    ponteiro.move(xinicial, yinicial - larguraNo,true);    
 
     var ponteiroDimensions = document.getElementById(ponteiro.node.id).getBoundingClientRect();
 
@@ -21,7 +21,7 @@ function svg_firstNode() {
     linha.stroke('#000000');
 
     var nullTitle = svg.plain("NULL");
-    nullTitle.move(xinicial, yinicial);
+    nullTitle.move(xinicial, yinicial,true);
 
     var result = {
         ponteiro: { ponteiro: ponteiro, height: heightPonteiro, width: widthPonteiro }, linha: linha, nullTitle: nullTitle
@@ -51,7 +51,7 @@ function svg_criarGraficos(x, y,valor) {
     return result;
 }
 
-function svg_mover_arvore(h) {
+function svg_mover_arvore(h,animate) {
     h--;
     var haux = h * espacamento;
     var x1 = xinicial;
@@ -66,16 +66,16 @@ function svg_mover_arvore(h) {
     arvore.raiz.svg_nopont.directions.x2l = x2l;
     arvore.raiz.svg_nopont.directions.x2r = x2r;
 
-    arvore.svg_arvpont.ponteiro.ponteiro.animate(velocidade).move(x1, y1 - larguraNo);
-    arvore.svg_arvpont.linha.animate(velocidade).move(x1 + arvore.svg_arvpont.ponteiro.width / 2, y1 - larguraNo + arvore.svg_arvpont.ponteiro.height);
+    arvore.svg_arvpont.ponteiro.ponteiro.animate(animate === true ? velocidade : 1).move(x1, y1 - larguraNo,animate);
+    arvore.svg_arvpont.linha.animate(animate === true ? velocidade : 1).move(x1 + arvore.svg_arvpont.ponteiro.width / 2, y1 - larguraNo + arvore.svg_arvpont.ponteiro.height,animate);
 
     remove(arvore.svg_arvpont.nullTitle);
     arvore.svg_arvpont.nullTitle = null;
 
-    move(arvore.raiz);
+    move(arvore.raiz,animate);
 
-    svg_mover_no(arvore.raiz.no_esquerda, h, x2l, y2,'E');
-    svg_mover_no(arvore.raiz.no_direita, h, x2r, y2,'D');
+    svg_mover_no(arvore.raiz.no_esquerda, h, x2l, y2,'E',animate);
+    svg_mover_no(arvore.raiz.no_direita, h, x2r, y2,'D',animate);
 }
 
 function remove(element) {
@@ -87,9 +87,22 @@ function remove(element) {
     
 }
 
-function move(No) {    
+function svg_removeSvgs(No) {
+    if (No !== null) {    
+        remove(No.svg_nopont.circulo);
+        remove(No.svg_nopont.numero);
+        remove(No.svg_nopont.linha_esq);
+        remove(No.svg_nopont.linha_dir);
+        remove(No.svg_nopont.null_esq);
+        remove(No.svg_nopont.null_dir);
+        svg_removeSvgs(No.no_esquerda);
+        svg_removeSvgs(No.no_direita);
+    }
+}
+
+function move(No,animate) {    
     var directions = No.svg_nopont.directions;
-    No.svg_nopont.circulo.animate(velocidade).move(directions.x1, directions.y1);
+    No.svg_nopont.circulo.animate(animate === true ? velocidade : 1).move(directions.x1, directions.y1);
 
     var numeroDimensions = document.getElementById(No.svg_nopont.numero.node.id).getBoundingClientRect();
 
@@ -99,7 +112,7 @@ function move(No) {
     var tx = directions.x1 + ((larguraNo - widthNumero) / 2);
     var ty = directions.y1 + ((larguraNo - heightNumero) / 2);
     
-    No.svg_nopont.numero.animate(velocidade).move(tx, ty);
+    No.svg_nopont.numero.animate(animate === true ? velocidade : 1).move(tx, ty);
 
     remove(No.svg_nopont.linha_dir);
     remove(No.svg_nopont.linha_esq);
@@ -121,7 +134,7 @@ function move(No) {
 
     if (No.no_esquerda === null) {    
         No.svg_nopont.null_esq = svg.plain("NULL");
-        No.svg_nopont.null_esq.move(lx2l, ly2);
+        No.svg_nopont.null_esq.move(lx2l, ly2,animate);
         No.svg_nopont.null_esq.rotate(90, lx2l, ly2);
     }
 
@@ -130,12 +143,12 @@ function move(No) {
 
     if (No.no_direita === null) {        
         No.svg_nopont.null_dir = svg.plain("NULL");
-        No.svg_nopont.null_dir.move(lx2r, ly2);
+        No.svg_nopont.null_dir.move(lx2r, ly2,animate);
         No.svg_nopont.null_dir.rotate(90, lx2r, ly2);
     }
 }
 
-function svg_mover_no(No, h, x1, y1,fronteira) {
+function svg_mover_no(No, h, x1, y1,fronteira,animate) {
     if (No !== null) {
         h--;
         var distfronteira = h * espacamento;
@@ -151,10 +164,10 @@ function svg_mover_no(No, h, x1, y1,fronteira) {
         No.svg_nopont.directions.x2l = x2l;
         No.svg_nopont.directions.x2r = x2r;
 
-        move(No);
+        move(No,animate);
 
-        svg_mover_no(No.no_esquerda, h, x2l, y2, fronteira === 'E' ? 'E' : 'N');
-        svg_mover_no(No.no_direita, h, x2r, y2, fronteira === 'D' ? 'D' : 'N');
+        svg_mover_no(No.no_esquerda, h, x2l, y2, fronteira === 'E' ? 'E' : 'N',animate);
+        svg_mover_no(No.no_direita, h, x2r, y2, fronteira === 'D' ? 'D' : 'N',animate);
     }
 
 }
