@@ -72,15 +72,16 @@ function b_imprimir_click() {
 
 function b_gerar_click() {
     arvore = e_Arvore();
-    //ListaAleatoria(maxItems);      
-    e_BuscaArvore(4, 'I');
+    ListaAleatoria(maxItems);      
+    /*e_BuscaArvore(4, 'I');
     e_BuscaArvore(2, 'I');
     e_BuscaArvore(6, 'I');
     e_BuscaArvore(1, 'I');
     e_BuscaArvore(3, 'I');
     e_BuscaArvore(5, 'I');
-    e_BuscaArvore(7, 'I');
+    e_BuscaArvore(7, 'I');*/
     b_desbloquearBotoes();
+    alert('A altura da árvore é: ' + e_Altura_Arvore(arvore.raiz,0));
 }
 
 
@@ -89,7 +90,7 @@ function ListaAleatoria(quantity) {
     while (quantity > 0) {
         var n = Math.floor((Math.random() * 1000) + 1);
         if (numbers.includes(n) === false) {
-            e_BuscaArvore(n,true);
+            e_BuscaArvore(n, 'I');
             numbers.push(n);
             quantity--;
         }        

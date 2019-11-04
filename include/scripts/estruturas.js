@@ -1,5 +1,5 @@
 function e_Arvore() {
-    return { raiz: null, quantidade: 0,svg_arvpont: null};
+    return { raiz: null, quantidade: 0};
     /*this.raiz = null;  //Primeiro nó   
     this.quant_nos = 0; */
 }
@@ -9,8 +9,7 @@ function e_Arvore() {
 function e_No(valor) {
     return {
         valor: valor, no_esquerda: null,
-        no_direita: null, svg_esquerda: null,
-        svg_direita: null, x: null, y:null
+        no_direita: null, svg_nopont:null
     };
     /*this.valor = valor; 
     this.no_esquerda = null; 
@@ -24,7 +23,7 @@ function e_BuscaArvore(valorBusca, operacao) {
     if (arvore.raiz === null) {
         if (operacao === 'I') {
             arvore.raiz = e_No(valorBusca);
-            arvore.svg_arvpont = svg_circulo(xinicial, yinicial);
+            arvore.raiz.svg_nopont = svg_circulo(xinicial, yinicial);
             //arvore.quantidade++;
         }
         return false;
@@ -48,6 +47,7 @@ function e_BuscaNo(No, valorBusca, operacao, doDelete) {
         if (No.no_esquerda === null) {
             if (operacao === 'I') {
                 No.no_esquerda = e_No(valorBusca);
+                No.no_esquerda.svg_nopont = svg_circulo(No.svg_nopont.directions.x2l, No.svg_nopont.directions.y2);
                 //arvore.quantidade++;
             }
             return false;
@@ -65,6 +65,7 @@ function e_BuscaNo(No, valorBusca, operacao, doDelete) {
         if (No.no_direita === null) {
             if (operacao === 'I') {
                 No.no_direita = e_No(valorBusca);
+                No.no_direita.svg_nopont = svg_circulo(No.svg_nopont.directions.x2r, No.svg_nopont.directions.y2);
                 //arvore.quantidade++;
             }
             return false;
@@ -77,6 +78,17 @@ function e_BuscaNo(No, valorBusca, operacao, doDelete) {
             }
             return result;
         }
+    }
+}
+
+function e_Altura_Arvore(No,h) {
+    if (No !== null) {
+        h++;
+        var he = e_Altura_Arvore(No.no_esquerda,h);
+        var hd = e_Altura_Arvore(No.no_direita,h);
+        h = he > h ? he : h;
+        h = hd > h ? hd : h;
+        return h;
     }
 }
 
