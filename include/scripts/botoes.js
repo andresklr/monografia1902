@@ -3,6 +3,7 @@ function b_criar_click() {
 }
 
 function criar_arvore() {
+    main_initiate();    
     arvore = e_Arvore();
     b_desbloquearBotoes();
     $('#remover').attr('disabled', 'disabled');
@@ -58,8 +59,7 @@ function b_adicionar_click() {
     }
 }
 
-function b_limpar_click() {
-    main_initiate();
+function b_limpar_click() {    
     criar_arvore();
     console.clear();
 }
@@ -85,40 +85,31 @@ function b_imprimir_click() {
     e_Imprimir_EDR(arvore.raiz);
 }
 
-async function b_gerar_click() {
-    main_initiate();
+async function b_gerar_click() {    
     criar_arvore();
     //ListaAleatoria(maxItems);      
-    e_BuscaArvore(10, 'I');
+    e_BuscaArvore(50, 'I');
+    await sleep(velocidade);
+    e_BuscaArvore(40, 'I');
+    await sleep(velocidade);
+    e_BuscaArvore(99, 'I');
+    await sleep(velocidade);
+    e_BuscaArvore(30, 'I');
+    await sleep(velocidade);
+    e_BuscaArvore(45, 'I');
+    await sleep(velocidade);
+    e_BuscaArvore(25, 'I');
+    await sleep(velocidade);
+    e_BuscaArvore(35, 'I');
     await sleep(velocidade);
     e_BuscaArvore(5, 'I');
     await sleep(velocidade);
-    e_BuscaArvore(15, 'I');
+    e_BuscaArvore(32, 'I');
     await sleep(velocidade);
-    e_BuscaArvore(3, 'I');
+    e_BuscaArvore(38, 'I');
     await sleep(velocidade);
-    e_BuscaArvore(7, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(2, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(4, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(6, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(8, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(13, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(18, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(12, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(14, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(16, 'I');
-    await sleep(velocidade);
-    e_BuscaArvore(19, 'I');
-    await sleep(velocidade);
+    e_BuscaArvore(36, 'I');
+    await sleep(velocidade);    
     b_desbloquearBotoes();    
 }
 
