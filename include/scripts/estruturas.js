@@ -13,6 +13,10 @@ function e_No(valor) {
 
 function e_graficosNo(No, animate) {
     No.svg_nopont = svg_criarGraficos(0, 0, No.valor);
+    e_moverArvore(animate);
+}
+
+function e_moverArvore(animate) {
     var h = e_Altura_Arvore(arvore.raiz, 0);
     svg_mover_arvore(h + 2, animate);
 }
@@ -99,7 +103,7 @@ function e_RemoveArvore() {
             if (noIt.no_direita === null) {
                 svg_Substituir_No(noIt, arvore.raiz, true);
                 noIt.no_direita = arvore.raiz.no_direita;
-                No = noIt;
+                arvore.raiz = noIt;
             }
             else {
                 while (noIt.no_direita.no_direita !== null) {
@@ -108,18 +112,16 @@ function e_RemoveArvore() {
                 novoNo = noIt.no_direita;
                 svg_Substituir_No(novoNo, arvore.raiz, false);
                 svg_Substituir_No(novoNo.no_esquerda, novoNo, false);
-                noIt.no_direita = novoNo.no_esquerda;
-                svg_removeSvgs(noIt, false);
+                noIt.no_direita = novoNo.no_esquerda;                
                 novoNo.no_esquerda = arvore.raiz.no_esquerda;
                 novoNo.no_direita = arvore.raiz.no_direita;
-                arvore.raiz = novoNo;
-                e_graficosNo(noIt, false);
+                arvore.raiz = novoNo;                
             }
 
         }
     }
-    svg_removeSvgs(arvore.raiz, false);
-    e_graficosNo(arvore.raiz, false);
+    e_moverArvore(true);
+    
 }
 
 function e_RemoveNo(No, lado) {
@@ -148,8 +150,6 @@ function e_RemoveNo(No, lado) {
                     svg_Substituir_No(noIt, No.no_esquerda, true);
                     noIt.no_direita = No.no_esquerda.no_direita;
                     No.no_esquerda = noIt;
-                    //No.no_esquerda.valor = noIt.valor;
-                    //No.no_esquerda.no_esquerda = noIt.no_esquerda;
                 }
                 else {
                     while (noIt.no_direita.no_direita !== null) {
@@ -158,17 +158,15 @@ function e_RemoveNo(No, lado) {
                     novoNo = noIt.no_direita;
                     svg_Substituir_No(novoNo, No.no_esquerda, false);
                     svg_Substituir_No(novoNo.no_esquerda, novoNo, false);
-                    noIt.no_direita = novoNo.no_esquerda;
-                    svg_removeSvgs(noIt, false);
+                    noIt.no_direita = novoNo.no_esquerda;                    
                     novoNo.no_esquerda = No.no_esquerda.no_esquerda;
                     novoNo.no_direita = No.no_esquerda.no_direita;
-                    No.no_esquerda = novoNo;
-                    e_graficosNo(noIt, false);
+                    No.no_esquerda = novoNo;                    
                 }
             }
         }
     }
-    else //if (lado === 'D') {
+    else
         svg_removeSvgs(No.no_direita, false);
     if (No.no_direita.no_esquerda === null) {
         if (No.no_direita.no_direita === null) {
@@ -199,16 +197,14 @@ function e_RemoveNo(No, lado) {
                 novoNo = noIt.no_direita;
                 svg_Substituir_No(novoNo, No.no_direita, false);
                 svg_Substituir_No(novoNo.no_esquerda, novoNo, false);
-                noIt.no_direita = novoNo.no_esquerda;
-                svg_removeSvgs(noIt, false);
+                noIt.no_direita = novoNo.no_esquerda;                
                 novoNo.no_esquerda = No.no_direita.no_esquerda;
                 novoNo.no_direita = No.no_direita.no_direita;
-                No.no_direita = novoNo;
-                e_graficosNo(noIt, false);
+                No.no_direita = novoNo;                
             }
-        }
-        //}
+        }        
     }
+    e_moverArvore(true);
 }
 
 function e_Altura_Arvore(No, h) {
