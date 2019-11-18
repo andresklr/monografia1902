@@ -136,6 +136,10 @@ function move(No, animate) {
 
     var linhadir = svg.line(directions.x1 + larguraNo, directions.y1 + larguraNo, lx2r, ly2);
     linhadir.stroke('#000000');
+    //linhadir.node.style.visibility = 'hidden';
+    var fadein = '<animate attributeType=\"CSS\" attributeName=\"opacity\" ' +
+        'from=\"0\" to=\"1\" dur=\"5s\" repeatCount=\"indefinite\" />';    
+    document.getElementById(linhadir).append(fadein);
     No.svg_nopont.linha_dir = linhadir;
 
     remove(No.svg_nopont.null_esq);
