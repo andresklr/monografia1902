@@ -10,10 +10,10 @@ function criar_arvore() {
     $('#imprimir').attr('disabled', 'disabled');
 }
 
-function b_pesquisar_click() {
+async function b_pesquisar_click() {
     var valorBusca = valor_Usuario();
-    if (!isNaN(valorBusca)) {
-        if (e_BuscaArvore(valorBusca, 'P') === true) {
+    if (!isNaN(valorBusca)) {        
+        if (await e_BuscaArvore(valorBusca, 'P') === true) {
             alert('Sucesso! Foi encontrado!');
         }
         else {
@@ -89,27 +89,27 @@ async function b_gerar_click() {
     criar_arvore();
     //ListaAleatoria(maxItems);      
     e_BuscaArvore(50, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(40, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(99, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(30, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(45, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(25, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(35, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(5, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(32, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(38, 'I');
-    await sleep(velocidade);
+    //await sleep(velocidade);
     e_BuscaArvore(36, 'I');
-    await sleep(velocidade);    
+    //await sleep(velocidade);    
     b_desbloquearBotoes();    
 }
 

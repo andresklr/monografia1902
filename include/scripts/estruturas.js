@@ -40,10 +40,13 @@ function e_BuscaArvore(valorBusca, operacao) {
     }
 }
 
-function e_BuscaNo(No, valorBusca, operacao, doDelete) {
+async function e_BuscaNo(No, valorBusca, operacao, doDelete) {
+    await sleep(velocidade);
+    svg_paint_no(No, 'noPath', false);
     var result;
     if (No.valor === valorBusca) {
-        return true;
+        svg_paint_no(No, 'noSuccess', false);
+        return true;        
     }
     else if (No.valor > valorBusca) {
         if (No.no_esquerda === null) {

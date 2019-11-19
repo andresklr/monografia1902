@@ -6,7 +6,7 @@ var altura_svg;
 function svg_firstNode() {
     var ponteiro = svg.plain("a->prim");
     ponteiro.move(xinicial, yinicial - larguraNo, true);
-    ponteiro.node.style.fontSize = (larguraNo / 2);
+    ponteiro.node.style.fontSize = fontsize;
 
     var ponteiroDimensions = document.getElementById(ponteiro.node.id).getBoundingClientRect();
 
@@ -23,7 +23,7 @@ function svg_firstNode() {
 
     var nullTitle = svg.plain("NULL");
     nullTitle.move(xinicial, yinicial, true);
-    nullTitle.node.style.fontSize = (larguraNo / 2);
+    nullTitle.node.style.fontSize = fontsize;
 
     var result = {
         ponteiro: { ponteiro: ponteiro, height: heightPonteiro, width: widthPonteiro }, linha: linha, nullTitle: nullTitle
@@ -39,7 +39,7 @@ function svg_criarGraficos(x, y, valor) {
     circulo.stroke('#000000');
 
     var numero = svg.plain(valor);
-    numero.node.style.fontSize = (larguraNo / 2);
+    numero.node.style.fontSize = fontsize;
 
     y += larguraNo;
 
@@ -103,8 +103,8 @@ function svg_removeSvgs(No, cascata) {
         remove(No.svg_nopont.null_esq);
         remove(No.svg_nopont.null_dir);
         if (cascata === true) {
-            svg_removeSvgs(No.no_esquerda,true);
-            svg_removeSvgs(No.no_direita,true);
+            svg_removeSvgs(No.no_esquerda, true);
+            svg_removeSvgs(No.no_direita, true);
         }
     }
 }
@@ -152,7 +152,7 @@ function move(No, animate) {
 
     if (No.no_esquerda === null) {
         No.svg_nopont.null_esq = svg.plain("NULL");
-        No.svg_nopont.null_esq.node.style.fontSize = (larguraNo / 2.2);
+        No.svg_nopont.null_esq.node.style.fontSize = fontsize * 0.8;
         No.svg_nopont.null_esq.move(lx2l, ly2, animate);
         No.svg_nopont.null_esq.rotate(90, lx2l, ly2);
         fadeIn(No.svg_nopont.null_esq, speed * 1.75);
@@ -163,10 +163,21 @@ function move(No, animate) {
 
     if (No.no_direita === null) {
         No.svg_nopont.null_dir = svg.plain("NULL");
-        No.svg_nopont.null_dir.node.style.fontSize = (larguraNo / 2.2);
+        No.svg_nopont.null_dir.node.style.fontSize = fontsize * 0.8;
         No.svg_nopont.null_dir.move(lx2r, ly2, animate);
         No.svg_nopont.null_dir.rotate(90, lx2r, ly2);
         fadeIn(No.svg_nopont.null_dir, speed * 1.75);
+    }
+}
+
+function svg_paint_no(No, classe, cascate) {
+    if (No !== null) {
+        No.svg_nopont.circulo.removeClass().addClass(classe);
+        //No.svg_nopont.numero.removeClass().addClass(classe);
+    }
+    if (cascate === true) {
+        svg_paint_no(No.no_esquerda, classe, true);
+        svg_paint_no(No.no_direita, classe, true);
     }
 }
 
