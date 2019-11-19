@@ -214,16 +214,20 @@ h1, h2, h3, h4, h5, h6 {
 	display:none;
 }
 
+.noNormal {    
+    fill:transparent;
+}
+
 .noDisabled {
-    fill: #D3D3D3;
+    fill: #D3D3D3;    
 }
 
 .noPath {
-    fill: #ADD8E6;
+    fill: #ADD8E6;    
 }
 
 .noSuccess {
-    fill: #90EE90;
+    fill: #90EE90;    
 }
 
 .svgOp {

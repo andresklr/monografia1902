@@ -90,10 +90,6 @@ function remove(element) {
 
 }
 
-function svg_Substituir_No(No, NoDestino, cascata) {
-
-}
-
 function svg_removeSvgs(No, cascata) {
     if (No !== null) {
         remove(No.svg_nopont.circulo);
@@ -170,15 +166,21 @@ function move(No, animate) {
     }
 }
 
-function svg_paint_no(No, classe, cascate) {
+async function svg_paint_no(No, classe, cascate,wait = true) {
     if (No !== null) {
-        No.svg_nopont.circulo.removeClass().addClass(classe);
-        //No.svg_nopont.numero.removeClass().addClass(classe);
-    }
-    if (cascate === true) {
-        svg_paint_no(No.no_esquerda, classe, true);
-        svg_paint_no(No.no_direita, classe, true);
-    }
+        if (wait === true) {
+            await sleep(velocidade);
+        }
+        No.svg_nopont.circulo.removeClass('noNormal');
+        No.svg_nopont.circulo.removeClass('noDisabled');
+        No.svg_nopont.circulo.removeClass('noPath');
+        No.svg_nopont.circulo.removeClass('noSuccess');
+        No.svg_nopont.circulo.addClass(classe);
+        if (cascate === true) {
+            svg_paint_no(No.no_esquerda, classe, true,false);
+            svg_paint_no(No.no_direita, classe, true,false);
+        }        
+    }    
 }
 
 function svg_mover_no(No, h, x1, y1, fronteira, animate) {
