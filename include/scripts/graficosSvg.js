@@ -109,9 +109,16 @@ function svg_removeSvgs(No, cascata) {
     }
 }
 
+function fadeIn(object, speed) {
+    $('#' + object.node.id).addClass("svgOp").css("animation-duration", ((speed * 1.1) / 1000) + "s");
+}
+
 function move(No, animate) {
+
+    var speed = animate === true ? velocidade : 1;
+
     var directions = No.svg_nopont.directions;
-    No.svg_nopont.circulo.animate(animate === true ? velocidade : 1).move(directions.x1, directions.y1);
+    No.svg_nopont.circulo.animate(speed).move(directions.x1, directions.y1);
 
     var numeroDimensions = document.getElementById(No.svg_nopont.numero.node.id).getBoundingClientRect();
 
@@ -121,7 +128,7 @@ function move(No, animate) {
     var tx = directions.x1 + ((larguraNo - widthNumero) / 2);
     var ty = directions.y1 + ((larguraNo - heightNumero) / 2);
 
-    No.svg_nopont.numero.animate(animate === true ? velocidade : 1).move(tx, ty);
+    No.svg_nopont.numero.animate(speed).move(tx, ty);
 
     remove(No.svg_nopont.linha_dir);
     remove(No.svg_nopont.linha_esq);
@@ -132,14 +139,12 @@ function move(No, animate) {
 
     var linhaesq = svg.line(directions.x1, directions.y1 + larguraNo, lx2l, ly2);
     linhaesq.stroke('#000000');
+    fadeIn(linhaesq, speed);
     No.svg_nopont.linha_esq = linhaesq;
 
     var linhadir = svg.line(directions.x1 + larguraNo, directions.y1 + larguraNo, lx2r, ly2);
     linhadir.stroke('#000000');
-    //linhadir.node.style.visibility = 'hidden';
-    var fadein = '<animate attributeType=\"CSS\" attributeName=\"opacity\" ' +
-        'from=\"0\" to=\"1\" dur=\"5s\" repeatCount=\"indefinite\" />';    
-    document.getElementById(linhadir).append(fadein);
+    fadeIn(linhadir, speed);
     No.svg_nopont.linha_dir = linhadir;
 
     remove(No.svg_nopont.null_esq);
@@ -150,6 +155,7 @@ function move(No, animate) {
         No.svg_nopont.null_esq.node.style.fontSize = (larguraNo / 2.2);
         No.svg_nopont.null_esq.move(lx2l, ly2, animate);
         No.svg_nopont.null_esq.rotate(90, lx2l, ly2);
+        fadeIn(No.svg_nopont.null_esq, speed * 1.75);
     }
 
     remove(No.svg_nopont.null_dir);
@@ -160,6 +166,7 @@ function move(No, animate) {
         No.svg_nopont.null_dir.node.style.fontSize = (larguraNo / 2.2);
         No.svg_nopont.null_dir.move(lx2r, ly2, animate);
         No.svg_nopont.null_dir.rotate(90, lx2r, ly2);
+        fadeIn(No.svg_nopont.null_dir, speed * 1.75);
     }
 }
 

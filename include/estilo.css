@@ -213,3 +213,22 @@ h1, h2, h3, h4, h5, h6 {
 .insercao-meio {
 	display:none;
 }
+
+.svgOp {
+    animation-name: FadeIn;    
+    animation-iteration-count: 1;
+}
+
+@keyframes FadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    99% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
