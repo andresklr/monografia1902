@@ -18,12 +18,12 @@ async function e_graficosNo(No, animate) {
 
 async function e_moverArvore(animate) {
     await sleep(velocidade);
-    var h = e_Altura_Arvore(arvore.raiz, 0);
+    var h = await e_Altura_Arvore(arvore.raiz, 0);
     svg_mover_arvore(h + 2, animate);
 }
 
 async function e_BuscaArvore(valorBusca, operacao) {
-    await svg_paint_no(arvore.raiz, 'noNormal', true);
+    await svg_paint_no(arvore.raiz, 'noNormal', true,false);
     var doDelete = { value: true };
     if (arvore.raiz === null) {
         if (operacao === 'I') {
@@ -221,37 +221,43 @@ async function e_RemoveNo(No, lado) {
     await e_moverArvore(true);
 }
 
-function e_Altura_Arvore(No, h) {
+async function e_Altura_Arvore(No, h, paint = false) {
     if (No !== null) {
+        if (paint === true) {
+            await svg_paint_no(No, 'noPath', false);
+        }
         h++;
-        var he = e_Altura_Arvore(No.no_esquerda, h);
-        var hd = e_Altura_Arvore(No.no_direita, h);
+        var he = await e_Altura_Arvore(No.no_esquerda, h,paint);
+        var hd = await e_Altura_Arvore(No.no_direita, h,paint);
         h = he > h ? he : h;
         h = hd > h ? hd : h;
         return h;
     }
 }
 
-function e_Imprimir_RED(No) {
+async function e_Imprimir_RED(No) {
     if (No !== null) {
+        await svg_paint_no(No, 'noPath', false);
         b_logIndex(", " + No.valor, false);
-        e_Imprimir_RED(No.no_esquerda);
-        e_Imprimir_RED(No.no_direita);
+        await e_Imprimir_RED(No.no_esquerda);
+        await e_Imprimir_RED(No.no_direita);
     }
 }
 
-function e_Imprimir_ERD(No) {
+async function e_Imprimir_ERD(No) {
     if (No !== null) {
-        e_Imprimir_ERD(No.no_esquerda);
+        await e_Imprimir_ERD(No.no_esquerda);
+        await svg_paint_no(No, 'noPath', false);
         b_logIndex(", " + No.valor, false);
-        e_Imprimir_ERD(No.no_direita);
+        await e_Imprimir_ERD(No.no_direita);
     }
 }
 
-function e_Imprimir_EDR(No) {
+async function e_Imprimir_EDR(No) {
     if (No !== null) {
-        e_Imprimir_EDR(No.no_esquerda);
-        e_Imprimir_EDR(No.no_direita);
+        await e_Imprimir_EDR(No.no_esquerda);
+        await e_Imprimir_EDR(No.no_direita);
+        await svg_paint_no(No, 'noPath', false);
         b_logIndex(", " + No.valor, false);
     }
 }

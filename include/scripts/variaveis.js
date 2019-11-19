@@ -4,7 +4,7 @@ var larguraNo = 30;
 var xinicial;
 var yinicial;
 var espacamento = 0.65;
-var velocidade = 200;
+var velocidade = 1000;
 var fontsize = 8 + (larguraNo / 4);
 
 function sleep(ms) {

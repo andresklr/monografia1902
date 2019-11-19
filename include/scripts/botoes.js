@@ -22,9 +22,10 @@ async function b_pesquisar_click() {
     }
 }
 
-function b_altura_click() {
-    svg_paint_no(arvore.raiz, 'noNormal', true,false);
-    var h = e_Altura_Arvore(arvore.raiz, 0);
+async function b_altura_click() {
+    await svg_paint_no(arvore.raiz, 'noNormal', true, false);    
+    var h = await e_Altura_Arvore(arvore.raiz, 0, true);
+    await sleep(velocidade);
     if (h === undefined) {
         h = 0;
     }
@@ -77,40 +78,35 @@ function b_logIndex(message, novalinha) {
     $('#log').append((novalinha === true ? "<br/>" : "") + message);
 }
 
-function b_imprimir_click() {
+async function b_imprimir_click() {
+    await svg_paint_no(arvore.raiz, 'noNormal', true, false);    
     b_logIndex("Impressão RED (Pré-Ordem)",true);    
-    e_Imprimir_RED(arvore.raiz);    
+    await e_Imprimir_RED(arvore.raiz);    
+    await sleep(velocidade);
+    await svg_paint_no(arvore.raiz, 'noNormal', true, false);    
     b_logIndex("Impressão ERD (Em-Ordem)",true);
-    e_Imprimir_ERD(arvore.raiz);
+    await e_Imprimir_ERD(arvore.raiz);
+    await sleep(velocidade);
+    await svg_paint_no(arvore.raiz, 'noNormal', true, false);    
     b_logIndex("Impressão EDR (Pós-Ordem)",true);
-    e_Imprimir_EDR(arvore.raiz);
+    await e_Imprimir_EDR(arvore.raiz);
 }
 
 async function b_gerar_click() {      
     criar_arvore();
     //await ListaAleatoria(maxItems);      
-    await e_BuscaArvore(50, 'I');
-    //await sleep(velocidade);
+    await e_BuscaArvore(50, 'I');    
     await e_BuscaArvore(40, 'I');
-    //await sleep(velocidade);
     await e_BuscaArvore(99, 'I');
-    //await sleep(velocidade);
     await e_BuscaArvore(30, 'I');
-    //await sleep(velocidade);
     await e_BuscaArvore(45, 'I');
-    //await sleep(velocidade);
     await e_BuscaArvore(25, 'I');
-    //await sleep(velocidade);
     await e_BuscaArvore(35, 'I');
-    //await sleep(velocidade);
     await e_BuscaArvore(5, 'I');
-    //await sleep(velocidade);
     await e_BuscaArvore(32, 'I');
-    //await sleep(velocidade);
     await e_BuscaArvore(38, 'I');
-    //await sleep(velocidade);
     await e_BuscaArvore(36, 'I');
-    //await sleep(velocidade);    
+        
     b_desbloquearBotoes();    
 }
 
