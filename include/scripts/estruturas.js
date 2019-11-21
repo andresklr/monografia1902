@@ -258,13 +258,14 @@ async function e_Calcular_Balanceamento(No,desbalanceado,cascade = true) {
 }
 
 async function e_InserirValor(valor) {
-    await e_BuscaArvore(valor, 'I');
+    var result = await e_BuscaArvore(valor, 'I');
     await e_BalancearArvore(valor, 'I');
+    return result;
 }
 
 async function e_BalancearArvore(valor, operacao) {
     if (tipo_arvore === 'AVL') {
-        await sleep(velocidade * 3);
+        await sleep(velocidade);
         var desbalanceado = { valor: null };
         await e_Calcular_Balanceamento(arvore.raiz, desbalanceado, true);
         if (desbalanceado.valor !== null) {
@@ -445,10 +446,10 @@ async function e_RotacaoNo(No, valor, lado, desbalanceado, operacao) {
                 await e_moverArvore(true);
             }
             else if (No.no_esquerda.valor > desbalanceado.valor) {
-                await e_RotacaoArvore(No.no_esquerda, valor,'E', desbalanceado, operacao);
+                await e_RotacaoNo(No.no_esquerda, valor,'E', desbalanceado, operacao);
             }
             else {
-                await e_RotacaoArvore(No.no_esquerda, valor,'D', desbalanceado, operacao);
+                await e_RotacaoNo(No.no_esquerda, valor,'D', desbalanceado, operacao);
             }
         }
     }
@@ -530,10 +531,10 @@ async function e_RotacaoNo(No, valor, lado, desbalanceado, operacao) {
                 await e_moverArvore(true);
             }
             else if (No.no_direita.valor > desbalanceado.valor) {
-                await e_RotacaoArvore(No.no_direita, valor,'E', desbalanceado, operacao);
+                await e_RotacaoNo(No.no_direita, valor, 'E', desbalanceado, operacao);
             }
             else {
-                await e_RotacaoArvore(No.no_direita, valor,'D', desbalanceado, operacao);
+                await e_RotacaoNo(No.no_direita, valor,'D', desbalanceado, operacao);
             }
         }
     }

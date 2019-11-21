@@ -51,12 +51,11 @@ async function b_remover_click() {
 async function b_adicionar_click() {    
     var valorBusca = valor_Usuario();
     if (!isNaN(valorBusca)) {
-        if (await e_BuscaArvore(valorBusca, 'I') === true) {
+        if (await e_InserirValor(valorBusca) === true) {
             alert('O valor não foi inserido, ele já existe na árvore!');
         }
-        else {
-            //alert('O valor foi inserido com sucesso!');
-            await e_BalancearArvore(valorBusca, 'I');
+        else {            
+            await e_BalancearArvore(valorBusca, 'I');            
             b_desbloquearBotoes();
         }
     }
@@ -99,14 +98,14 @@ function b_mudararvore_click() {
 
 async function b_gerar_click() {      
     criar_arvore();
-    //await ListaAleatoria(maxItems);      
-    await e_InserirValor(40);    
+    await ListaAleatoria(maxItems);      
+    /*await e_InserirValor(40);    
     await e_InserirValor(20);
     await e_InserirValor(10);
     await e_InserirValor(25);
     await e_InserirValor(30);
     await e_InserirValor(22);
-    await e_InserirValor(50);    
+    await e_InserirValor(50);    */
 
     b_desbloquearBotoes();    
 }
@@ -116,13 +115,12 @@ async function ListaAleatoria(quantity) {
     var numbers = [];
     while (quantity > 0) {
         var n = Math.floor((Math.random() * maxItems) + 1);
-        if (numbers.includes(n) === false) {
-            await e_BuscaArvore(n, 'I');
+        if (numbers.includes(n) === false) {            
+            await e_InserirValor(n, 'I');
             numbers.push(n);
             quantity--;
         }        
-    }
-    alert(numbers);
+    }    
 }
 
 function b_bloquearBotoes() {
