@@ -23,7 +23,6 @@ async function b_pesquisar_click() {
 }
 
 async function b_altura_click() {    
-    await e_Calcular_Balanceamento(arvore.raiz, true);    
     await svg_limparCores();
     var h = await e_Altura_Arvore(arvore.raiz, 0, true); 
     await sleep(velocidade);
@@ -57,6 +56,7 @@ async function b_adicionar_click() {
         }
         else {
             //alert('O valor foi inserido com sucesso!');
+            await e_BalancearArvore(valorBusca, 'I');
             b_desbloquearBotoes();
         }
     }
@@ -111,7 +111,9 @@ async function b_gerar_click() {
     await e_BuscaArvore(32, 'I');
     await e_BuscaArvore(38, 'I');
     await e_BuscaArvore(36, 'I');
-        
+
+    await e_BalancearArvore(36, 'I');
+
     b_desbloquearBotoes();    
 }
 
