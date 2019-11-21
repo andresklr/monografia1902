@@ -48,7 +48,7 @@ function svg_criarGraficos(x, y, valor) {
     var y2 = y + (larguraNo * 0.866);
 
     var result = {
-        circulo: circulo, numero: numero, linha_esq: null, linha_dir: null, null_esq: null, null_dir: null,balance:null, directions: { x1: x, y1: y, x2l: x2l, x2r: x2r, y2: y2 }
+        circulo: circulo, numero: numero, linha_esq: null, linha_dir: null, null_esq: null, null_dir: null, balance: null, directions: { x1: x, y1: y, x2l: x2l, x2r: x2r, y2: y2 }
     };
 
     return result;
@@ -92,7 +92,7 @@ function remove(element) {
 
 async function svg_limparCores() {
     await sleep(velocidade);
-    await svg_paint_no(arvore.raiz, 'noNormal', true, false); 
+    await svg_paint_no(arvore.raiz, 'noNormal', true, false);
 }
 
 function svg_removeSvgs(No, cascata) {
@@ -120,6 +120,12 @@ function move(No, animate) {
 
     var directions = No.svg_nopont.directions;
     No.svg_nopont.circulo.animate(speed).move(directions.x1, directions.y1);
+    if (No.svg_nopont.balance !== null) {
+        //No.svg_nopont.balance.animate(speed).move(directions.x1 + (larguraNo / 2), directions.y1 - (larguraNo / 2));        
+        remove(No.svg_nopont.balance);
+        No.svg_nopont.balance = null;
+
+    }
 
     var numeroDimensions = document.getElementById(No.svg_nopont.numero.node.id).getBoundingClientRect();
 
@@ -171,7 +177,7 @@ function move(No, animate) {
     }
 }
 
-async function svg_paint_no(No, classe, cascate,wait = true) {
+async function svg_paint_no(No, classe, cascate, wait = true) {
     if (No !== null) {
         if (wait === true) {
             await sleep(velocidade);
@@ -180,18 +186,19 @@ async function svg_paint_no(No, classe, cascate,wait = true) {
         No.svg_nopont.circulo.removeClass('noDisabled');
         No.svg_nopont.circulo.removeClass('noPath');
         No.svg_nopont.circulo.removeClass('noSuccess');
+        No.svg_nopont.circulo.removeClass('noWarning');
         No.svg_nopont.circulo.addClass(classe);
         if (cascate === true) {
-            svg_paint_no(No.no_esquerda, classe, true,false);
-            svg_paint_no(No.no_direita, classe, true,false);
-        }        
-    }    
+            svg_paint_no(No.no_esquerda, classe, true, false);
+            svg_paint_no(No.no_direita, classe, true, false);
+        }
+    }
 }
 
 async function svg_draw_Balance(No) {
     if (No !== null) {
         remove(No.svg_nopont.balance);
-        var lbalance = svg.plain(No.balance);
+        var lbalance = svg.plain(No.balance > 0 ? '+' + No.balance : No.balance);
         lbalance.node.style.fontSize = fontsize - 1;
         var directions = No.svg_nopont.directions;
         lbalance.move(directions.x1 + (larguraNo / 2), directions.y1 - (larguraNo / 2));

@@ -100,19 +100,13 @@ function b_mudararvore_click() {
 async function b_gerar_click() {      
     criar_arvore();
     //await ListaAleatoria(maxItems);      
-    await e_BuscaArvore(50, 'I');    
-    await e_BuscaArvore(40, 'I');
-    await e_BuscaArvore(99, 'I');
-    await e_BuscaArvore(30, 'I');
-    await e_BuscaArvore(45, 'I');
-    await e_BuscaArvore(25, 'I');
-    await e_BuscaArvore(35, 'I');
-    await e_BuscaArvore(5, 'I');
-    await e_BuscaArvore(32, 'I');
-    await e_BuscaArvore(38, 'I');
-    await e_BuscaArvore(36, 'I');
-
-    await e_BalancearArvore(36, 'I');
+    await e_InserirValor(40);    
+    await e_InserirValor(20);
+    await e_InserirValor(10);
+    await e_InserirValor(25);
+    await e_InserirValor(30);
+    await e_InserirValor(22);
+    await e_InserirValor(50);    
 
     b_desbloquearBotoes();    
 }
