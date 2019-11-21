@@ -7,7 +7,7 @@ function e_Arvore() {
 function e_No(valor) {
     return {
         valor: valor, no_esquerda: null,
-        no_direita: null, svg_nopont: null
+        no_direita: null, svg_nopont: null,balance:0
     };
 }
 
@@ -23,7 +23,7 @@ async function e_moverArvore(animate) {
 }
 
 async function e_BuscaArvore(valorBusca, operacao) {
-    await svg_paint_no(arvore.raiz, 'noNormal', true,false);
+    await svg_limparCores();
     var doDelete = { value: true };
     if (arvore.raiz === null) {
         if (operacao === 'I') {
@@ -223,16 +223,34 @@ async function e_RemoveNo(No, lado) {
 
 async function e_Altura_Arvore(No, h, paint = false) {
     if (No !== null) {
-        if (paint === true) {
+        if (paint === true) {            
             await svg_paint_no(No, 'noPath', false);
         }
         h++;
-        var he = await e_Altura_Arvore(No.no_esquerda, h,paint);
-        var hd = await e_Altura_Arvore(No.no_direita, h,paint);
+        var he = await e_Altura_Arvore(No.no_esquerda, h, paint);
+        var hd = await e_Altura_Arvore(No.no_direita, h, paint);
         h = he > h ? he : h;
         h = hd > h ? hd : h;
         return h;
     }
+    else return 0;
+}
+
+async function e_Calcular_Balanceamento(No,cascade = true) {
+    if (No !== null) {        
+        await svg_limparCores();
+        var he = await e_Altura_Arvore(No.no_esquerda, 0,true);
+        var hd = await e_Altura_Arvore(No.no_direita, 0, true);
+        No.balance = he - hd;
+        await svg_draw_Balance(No);
+        if (cascade === true) {
+            await svg_limparCores();
+            await e_Calcular_Balanceamento(No.no_esquerda, true);
+            await svg_limparCores();
+            await e_Calcular_Balanceamento(No.no_direita, true);
+        }
+    }
+    else return 0;
 }
 
 async function e_Imprimir_RED(No) {

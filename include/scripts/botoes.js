@@ -22,9 +22,10 @@ async function b_pesquisar_click() {
     }
 }
 
-async function b_altura_click() {
-    await svg_paint_no(arvore.raiz, 'noNormal', true, false);    
-    var h = await e_Altura_Arvore(arvore.raiz, 0, true);
+async function b_altura_click() {    
+    await e_Calcular_Balanceamento(arvore.raiz, true);    
+    await svg_limparCores();
+    var h = await e_Altura_Arvore(arvore.raiz, 0, true); 
     await sleep(velocidade);
     if (h === undefined) {
         h = 0;
@@ -79,17 +80,21 @@ function b_logIndex(message, novalinha) {
 }
 
 async function b_imprimir_click() {
-    await svg_paint_no(arvore.raiz, 'noNormal', true, false);    
+    await svg_limparCores(); 
     b_logIndex("Impressão RED (Pré-Ordem)",true);    
     await e_Imprimir_RED(arvore.raiz);    
     await sleep(velocidade);
-    await svg_paint_no(arvore.raiz, 'noNormal', true, false);    
+    await svg_limparCores();   
     b_logIndex("Impressão ERD (Em-Ordem)",true);
     await e_Imprimir_ERD(arvore.raiz);
     await sleep(velocidade);
-    await svg_paint_no(arvore.raiz, 'noNormal', true, false);    
+    await svg_limparCores();   
     b_logIndex("Impressão EDR (Pós-Ordem)",true);
     await e_Imprimir_EDR(arvore.raiz);
+}
+
+function b_mudararvore_click() {
+    main_initiate();
 }
 
 async function b_gerar_click() {      

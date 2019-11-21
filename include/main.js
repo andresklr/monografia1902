@@ -18,5 +18,5 @@ function main_initiate() {
     $('#criar').removeAttr('disabled');
 
     $('#log').empty();
-//    $('#log').append("<br/><br/><br/><br/><br/><br/>");
+    tipo_arvore = $('#tipo-lista').val();
 }
