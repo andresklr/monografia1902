@@ -3,6 +3,7 @@ function b_criar_click() {
 }
 
 function criar_arvore() {
+    $('#acao-principal').text("");
     main_initiate();    
     arvore = e_Arvore();
     b_desbloquearBotoes();
@@ -13,7 +14,9 @@ function criar_arvore() {
 async function b_pesquisar_click() {    
     var valorBusca = valor_Usuario();
     if (!isNaN(valorBusca)) {        
-        if (await e_BuscaArvore(valorBusca, 'P') === true) {
+        var result = await e_BuscaArvore(valorBusca, 'P');
+        await sleep(velocidade);
+        if (result === true) {
             alert('Sucesso! Foi encontrado!');
         }
         else {
@@ -35,6 +38,7 @@ async function b_altura_click() {
 async function b_remover_click() {    
     var valorBusca = valor_Usuario();
     if (!isNaN(valorBusca)) {
+        $('#acao-principal').text("Efetuando remocao do no...");
         if (await e_BuscaArvore(valorBusca, 'R') === true) {
             alert('O valor foi removido com sucesso!');
         }

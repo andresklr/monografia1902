@@ -187,6 +187,7 @@ async function svg_paint_no(No, classe, cascate, wait = true) {
         No.svg_nopont.circulo.removeClass('noPath');
         No.svg_nopont.circulo.removeClass('noSuccess');
         No.svg_nopont.circulo.removeClass('noWarning');
+        No.svg_nopont.circulo.removeClass('noHeight');
         No.svg_nopont.circulo.addClass(classe);
         if (cascate === true) {
             svg_paint_no(No.no_esquerda, classe, true, false);

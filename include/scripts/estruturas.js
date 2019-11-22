@@ -16,9 +16,10 @@ async function e_graficosNo(No, animate) {
     await e_moverArvore(animate);
 }
 
-async function e_moverArvore(animate) {
-    await sleep(velocidade);
+async function e_moverArvore(animate) {    
+    await sleep(velocidade);    
     var h = await e_Altura_Arvore(arvore.raiz, 0);
+    $('#acao-principal').text("Movendo arvore... ");
     svg_mover_arvore(h + 2, animate);
 }
 
@@ -92,7 +93,7 @@ async function e_BuscaNo(No, valorBusca, operacao, doDelete) {
     }
 }
 
-async function e_RemoveArvore() {
+async function e_RemoveArvore() {    
     svg_removeSvgs(arvore.raiz, false);
     if (arvore.raiz.no_esquerda === null) {
         if (arvore.raiz.no_direita === null) {
@@ -136,7 +137,7 @@ async function e_RemoveArvore() {
     
 }
 
-async function e_RemoveNo(No, lado) {
+async function e_RemoveNo(No, lado) {    
     //Observação, precisou ser feito desta forma, duplicando a função para o lado esquerdo e direito porque o javascript não aceita passada de parâmetro por referência, dessa forma, precisou ser enviado
     //o nó pai, e teve que fazer a lógica para caso o nó a remover fosse do lado esquerdo e caso fosse para o lado direito
     var noIt = null, novoNo = null;
@@ -223,8 +224,9 @@ async function e_RemoveNo(No, lado) {
 
 async function e_Altura_Arvore(No, h, paint = false) {
     if (No !== null) {
+        $('#acao-principal').text("Calculando a altura dos nos...");
         if (paint === true) {            
-            await svg_paint_no(No, 'noPath', false);
+            await svg_paint_no(No, 'noHeight', false);
         }
         h++;
         var he = await e_Altura_Arvore(No.no_esquerda, h, paint);
@@ -237,7 +239,7 @@ async function e_Altura_Arvore(No, h, paint = false) {
 }
 
 async function e_Calcular_Balanceamento(No,desbalanceado,cascade = true) {
-    if (No !== null) {        
+    if (No !== null) {             
         await svg_limparCores();
         await svg_paint_no(No, 'noSuccess', false, false);
         var he = await e_Altura_Arvore(No.no_esquerda, 0,true);
@@ -258,6 +260,7 @@ async function e_Calcular_Balanceamento(No,desbalanceado,cascade = true) {
 }
 
 async function e_InserirValor(valor) {
+    $('#acao-principal').text("Inserindo o valor: " + valor);
     var result = await e_BuscaArvore(valor, 'I');
     await e_BalancearArvore(valor, 'I');
     return result;
@@ -265,7 +268,7 @@ async function e_InserirValor(valor) {
 
 async function e_BalancearArvore(valor, operacao) {
     if (tipo_arvore === 'AVL') {
-        await sleep(velocidade);
+        //await sleep(velocidade);
         var desbalanceado = { valor: null };
         await e_Calcular_Balanceamento(arvore.raiz, desbalanceado, true);
         if (desbalanceado.valor !== null) {
@@ -277,6 +280,7 @@ async function e_BalancearArvore(valor, operacao) {
 
 async function e_RotacaoArvore(valor, desbalanceado, operacao) {
     if (arvore.raiz !== null) {
+        $('#acao-principal').text("Efetuando o balanceamento...");
         if (arvore.raiz.valor === desbalanceado.valor) {
             
             var tipoTransformacao;
