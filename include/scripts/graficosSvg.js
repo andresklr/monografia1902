@@ -103,6 +103,7 @@ function svg_removeSvgs(No, cascata) {
         remove(No.svg_nopont.linha_dir);
         remove(No.svg_nopont.null_esq);
         remove(No.svg_nopont.null_dir);
+        remove(No.svg_nopont.balance);
         if (cascata === true) {
             svg_removeSvgs(No.no_esquerda, true);
             svg_removeSvgs(No.no_direita, true);
@@ -159,7 +160,7 @@ function move(No, animate) {
 
     if (No.no_esquerda === null) {
         No.svg_nopont.null_esq = svg.plain("NULL");
-        No.svg_nopont.null_esq.node.style.fontSize = fontsize * 0.8;
+        No.svg_nopont.null_esq.node.style.fontSize = fontsize * 0.5;
         No.svg_nopont.null_esq.move(lx2l, ly2, animate);
         No.svg_nopont.null_esq.rotate(90, lx2l, ly2);
         fadeIn(No.svg_nopont.null_esq, speed * 1.75);

@@ -25,6 +25,24 @@ async function b_pesquisar_click() {
     }
 }
 
+async function b_pause_click() {
+    try {
+        $('#pause').attr('disabled', 'disabled');
+        $('#continue').removeAttr('disabled');
+    }
+    catch{ 1; }
+    paused = true;
+}
+
+async function b_continue_click() {
+    try {
+        $('#continue').attr('disabled', 'disabled');
+        $('#pause').removeAttr('disabled');
+    }
+    catch{ 1; }
+    paused = false;
+}
+
 async function b_altura_click() {    
     await svg_limparCores();
     var h = await e_Altura_Arvore(arvore.raiz, 0, true); 
@@ -39,7 +57,7 @@ async function b_remover_click() {
     var valorBusca = valor_Usuario();
     if (!isNaN(valorBusca)) {
         $('#acao-principal').text("Efetuando remocao do no...");
-        if (await e_BuscaArvore(valorBusca, 'R') === true) {
+        if (await e_RemoverValor(valorBusca) === true) {
             alert('O valor foi removido com sucesso!');
         }
         else {
@@ -58,8 +76,7 @@ async function b_adicionar_click() {
         if (await e_InserirValor(valorBusca) === true) {
             alert('O valor não foi inserido, ele já existe na árvore!');
         }
-        else {            
-            await e_BalancearArvore(valorBusca, 'I');            
+        else {                                   
             b_desbloquearBotoes();
         }
     }

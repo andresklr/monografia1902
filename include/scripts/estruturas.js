@@ -20,7 +20,7 @@ async function e_moverArvore(animate) {
     await sleep(velocidade);    
     var h = await e_Altura_Arvore(arvore.raiz, 0);
     $('#acao-principal').text("Movendo arvore... ");
-    svg_mover_arvore(h + 2, animate);
+    await svg_mover_arvore(h + 2, animate);
 }
 
 async function e_BuscaArvore(valorBusca, operacao) {
@@ -148,19 +148,19 @@ async function e_RemoveNo(No, lado) {
                 No.no_esquerda = null;
             }
             else {
-                await svg_paint_no(No.no_esquerda.no_direita, 'noSuccess', false);                
+                await svg_paint_no(No.no_esquerda.no_direita, 'noSuccess', false);
                 No.no_esquerda = No.no_esquerda.no_direita;
             }
         }
         else {
-            if (No.no_esquerda.no_direita === null) {                
+            if (No.no_esquerda.no_direita === null) {
                 await svg_paint_no(No.no_esquerda.no_esquerda, 'noSuccess', false);
                 No.no_esquerda = No.no_esquerda.no_esquerda;
             }
             else {
                 noIt = No.no_esquerda.no_esquerda;
                 await svg_paint_no(noIt, 'noPath', false);
-                if (noIt.no_direita === null) {                    
+                if (noIt.no_direita === null) {
                     noIt.no_direita = No.no_esquerda.no_direita;
                     No.no_esquerda = noIt;
                     await svg_paint_no(noIt, 'noSuccess', false);
@@ -170,54 +170,54 @@ async function e_RemoveNo(No, lado) {
                         noIt = noIt.no_direita;
                         await svg_paint_no(noIt, 'noPath', false);
                     }
-                    novoNo = noIt.no_direita;                    
-                    noIt.no_direita = novoNo.no_esquerda;                    
+                    novoNo = noIt.no_direita;
+                    noIt.no_direita = novoNo.no_esquerda;
                     novoNo.no_esquerda = No.no_esquerda.no_esquerda;
                     novoNo.no_direita = No.no_esquerda.no_direita;
-                    No.no_esquerda = novoNo; 
+                    No.no_esquerda = novoNo;
                     await svg_paint_no(novoNo, 'noSuccess', false);
                 }
             }
         }
     }
-    else
-        svg_removeSvgs(No.no_direita, false);
-    if (No.no_direita.no_esquerda === null) {
-        if (No.no_direita.no_direita === null) {
-            svg_removeSvgs(No.no_direita, false);
-            No.no_direita = null;
-        }
-        else {            
-            await svg_paint_no(No.no_direita.no_direita, 'noSuccess', false);                
-            No.no_direita = No.no_direita.no_direita;
-        }
-    }
     else {
-        if (No.no_direita.no_direita === null) {  
-            await svg_paint_no(No.no_direita.no_esquerda, 'noSuccess', false);
-            No.no_direita = No.no_direita.no_esquerda;
-        }
-        else {
-            noIt = No.no_direita.no_esquerda;
-            await svg_paint_no(noIt, 'noPath', false);
-            if (noIt.no_direita === null) {                
-                noIt.no_direita = No.no_direita.no_direita;
-                No.no_direita = noIt;
-                await svg_paint_no(noIt, 'noSuccess', false);
+        svg_removeSvgs(No.no_direita, false);
+        if (No.no_direita.no_esquerda === null) {
+            if (No.no_direita.no_direita === null) {
+                No.no_direita = null;
             }
             else {
-                while (noIt.no_direita.no_direita !== null) {
-                    noIt = noIt.no_direita;
-                    await svg_paint_no(noIt, 'noPath', false);
-                }
-                novoNo = noIt.no_direita;                
-                noIt.no_direita = novoNo.no_esquerda;                
-                novoNo.no_esquerda = No.no_direita.no_esquerda;
-                novoNo.no_direita = No.no_direita.no_direita;
-                No.no_direita = novoNo;  
-                await svg_paint_no(novoNo, 'noSuccess', false);
+                await svg_paint_no(No.no_direita.no_direita, 'noSuccess', false);
+                No.no_direita = No.no_direita.no_direita;
             }
-        }        
+        }
+        else {
+            if (No.no_direita.no_direita === null) {
+                await svg_paint_no(No.no_direita.no_esquerda, 'noSuccess', false);
+                No.no_direita = No.no_direita.no_esquerda;
+            }
+            else {
+                noIt = No.no_direita.no_esquerda;
+                await svg_paint_no(noIt, 'noPath', false);
+                if (noIt.no_direita === null) {
+                    noIt.no_direita = No.no_direita.no_direita;
+                    No.no_direita = noIt;
+                    await svg_paint_no(noIt, 'noSuccess', false);
+                }
+                else {
+                    while (noIt.no_direita.no_direita !== null) {
+                        noIt = noIt.no_direita;
+                        await svg_paint_no(noIt, 'noPath', false);
+                    }
+                    novoNo = noIt.no_direita;
+                    noIt.no_direita = novoNo.no_esquerda;
+                    novoNo.no_esquerda = No.no_direita.no_esquerda;
+                    novoNo.no_direita = No.no_direita.no_direita;
+                    No.no_direita = novoNo;
+                    await svg_paint_no(novoNo, 'noSuccess', false);
+                }
+            }
+        }
     }
     await e_moverArvore(true);
 }
@@ -262,23 +262,31 @@ async function e_Calcular_Balanceamento(No,desbalanceado,cascade = true) {
 async function e_InserirValor(valor) {
     $('#acao-principal').text("Inserindo o valor: " + valor);
     var result = await e_BuscaArvore(valor, 'I');
-    await e_BalancearArvore(valor, 'I');
+    await e_BalancearArvore();
     return result;
 }
 
-async function e_BalancearArvore(valor, operacao) {
+async function e_RemoverValor(valor) {
+    $('#acao-principal').text("Removendo o valor: " + valor);
+    var result = await e_BuscaArvore(valor, 'R');
+    //await sleep(velocidade);
+    await e_BalancearArvore();
+    return result;
+}
+
+async function e_BalancearArvore() {
     if (tipo_arvore === 'AVL') {
         //await sleep(velocidade);
         var desbalanceado = { valor: null };
         await e_Calcular_Balanceamento(arvore.raiz, desbalanceado, true);
         if (desbalanceado.valor !== null) {
-            await e_RotacaoArvore(valor, desbalanceado, operacao);
-            await e_BalancearArvore(valor, operacao);
+            await e_RotacaoArvore(desbalanceado);
+            await e_BalancearArvore();
         }
     }
 }
 
-async function e_RotacaoArvore(valor, desbalanceado, operacao) {
+async function e_RotacaoArvore(desbalanceado) {
     if (arvore.raiz !== null) {
         $('#acao-principal').text("Efetuando o balanceamento...");
         if (arvore.raiz.valor === desbalanceado.valor) {
@@ -286,22 +294,24 @@ async function e_RotacaoArvore(valor, desbalanceado, operacao) {
             var tipoTransformacao;
             var NoA, NoB, NoC;
 
-            if (arvore.raiz.valor > valor) {
+            if (arvore.raiz.balance > 0) {
                 tipoTransformacao = 'L';
-                if (arvore.raiz.no_esquerda.valor > valor) {
+                if (arvore.raiz.no_esquerda.balance > 0) {
                     tipoTransformacao += 'L';
                 }
                 else tipoTransformacao += 'R';
             }
             else {
                 tipoTransformacao = 'R';
-                if (arvore.raiz.no_direita.valor > valor) {
+                if (arvore.raiz.no_direita.balance > 0) {
                     tipoTransformacao += 'L';
                 }
                 else tipoTransformacao += 'R';
             }
 
             NoA = arvore.raiz;
+
+            $('#acao-principal').text("Tipo de rotacao: " + tipoTransformacao);
 
             switch (tipoTransformacao) {
                 case 'LL': {
@@ -362,12 +372,12 @@ async function e_RotacaoArvore(valor, desbalanceado, operacao) {
         }
         else {
             
-            await e_RotacaoNo(arvore.raiz, valor,(arvore.raiz.valor > desbalanceado.valor) ? 'E' : 'D', desbalanceado, operacao);
+            await e_RotacaoNo(arvore.raiz,(arvore.raiz.valor > desbalanceado.valor) ? 'E' : 'D', desbalanceado);
         }
     }
 }
 
-async function e_RotacaoNo(No, valor, lado, desbalanceado, operacao) {
+async function e_RotacaoNo(No, lado, desbalanceado) {
     //Observação, precisou ser feito desta forma, duplicando a função para o lado esquerdo e direito porque o javascript não aceita passada de parâmetro por referência, dessa forma, precisou ser enviado
     //o nó pai, e teve que fazer a lógica para caso o nó a remover fosse do lado esquerdo e caso fosse para o lado direito
     var tipoTransformacao;
@@ -375,22 +385,24 @@ async function e_RotacaoNo(No, valor, lado, desbalanceado, operacao) {
     if (lado === 'E') {
         if (No.no_esquerda !== null) {
             if (No.no_esquerda.valor === desbalanceado.valor) {                
-                if (No.no_esquerda.valor > valor) {
+                if (No.no_esquerda.balance > 0) {
                     tipoTransformacao = 'L';
-                    if (No.no_esquerda.no_esquerda.valor > valor) {
+                    if (No.no_esquerda.no_esquerda.balance > 0) {
                         tipoTransformacao += 'L';
                     }
                     else tipoTransformacao += 'R';
                 }
                 else {
                     tipoTransformacao = 'R';
-                    if (No.no_esquerda.no_direita.valor > valor) {
+                    if (No.no_esquerda.no_direita.balance > 0) {
                         tipoTransformacao += 'L';
                     }
                     else tipoTransformacao += 'R';
                 }
 
-                NoA = No.no_esquerda;                
+                NoA = No.no_esquerda;          
+
+                $('#acao-principal').text("Tipo de rotacao: " + tipoTransformacao);
 
                 switch (tipoTransformacao) {
                     case 'LL': {
@@ -450,32 +462,34 @@ async function e_RotacaoNo(No, valor, lado, desbalanceado, operacao) {
                 await e_moverArvore(true);
             }
             else if (No.no_esquerda.valor > desbalanceado.valor) {
-                await e_RotacaoNo(No.no_esquerda, valor,'E', desbalanceado, operacao);
+                await e_RotacaoNo(No.no_esquerda,'E', desbalanceado);
             }
             else {
-                await e_RotacaoNo(No.no_esquerda, valor,'D', desbalanceado, operacao);
+                await e_RotacaoNo(No.no_esquerda,'D', desbalanceado);
             }
         }
     }
     else {
         if (No.no_direita !== null) {
             if (No.no_direita.valor === desbalanceado.valor) {                
-                if (No.no_direita.valor > valor) {
+                if (No.no_direita.balance > 0) {
                     tipoTransformacao = 'L';
-                    if (No.no_direita.no_esquerda.valor > valor) {
+                    if (No.no_direita.no_esquerda.balance > 0) {
                         tipoTransformacao += 'L';
                     }
                     else tipoTransformacao += 'R';
                 }
                 else {
                     tipoTransformacao = 'R';
-                    if (No.no_direita.no_direita.valor > valor) {
+                    if (No.no_direita.no_direita.balance > 0) {
                         tipoTransformacao += 'L';
                     }
                     else tipoTransformacao += 'R';
                 }
 
-                NoA = No.no_direita;                
+                NoA = No.no_direita;    
+
+                $('#acao-principal').text("Tipo de rotacao: " + tipoTransformacao);
 
                 switch (tipoTransformacao) {
                     case 'LL': {
@@ -535,10 +549,10 @@ async function e_RotacaoNo(No, valor, lado, desbalanceado, operacao) {
                 await e_moverArvore(true);
             }
             else if (No.no_direita.valor > desbalanceado.valor) {
-                await e_RotacaoNo(No.no_direita, valor, 'E', desbalanceado, operacao);
+                await e_RotacaoNo(No.no_direita, 'E', desbalanceado);
             }
             else {
-                await e_RotacaoNo(No.no_direita, valor,'D', desbalanceado, operacao);
+                await e_RotacaoNo(No.no_direita,'D', desbalanceado);
             }
         }
     }
