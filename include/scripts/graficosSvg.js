@@ -160,7 +160,7 @@ function move(No, animate) {
 
     if (No.no_esquerda === null) {
         No.svg_nopont.null_esq = svg.plain("NULL");
-        No.svg_nopont.null_esq.node.style.fontSize = fontsize * 0.5;
+        No.svg_nopont.null_esq.node.style.fontSize = fontsize * 0.65;
         No.svg_nopont.null_esq.move(lx2l, ly2, animate);
         No.svg_nopont.null_esq.rotate(90, lx2l, ly2);
         fadeIn(No.svg_nopont.null_esq, speed * 1.75);
@@ -171,7 +171,7 @@ function move(No, animate) {
 
     if (No.no_direita === null) {
         No.svg_nopont.null_dir = svg.plain("NULL");
-        No.svg_nopont.null_dir.node.style.fontSize = fontsize * 0.8;
+        No.svg_nopont.null_dir.node.style.fontSize = fontsize * 0.65;
         No.svg_nopont.null_dir.move(lx2r, ly2, animate);
         No.svg_nopont.null_dir.rotate(90, lx2r, ly2);
         fadeIn(No.svg_nopont.null_dir, speed * 1.75);
