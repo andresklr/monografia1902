@@ -35,7 +35,7 @@ async function e_BuscaArvore(valorBusca, operacao) {
     }
     else {
         result = await e_BuscaNo(arvore.raiz, valorBusca, operacao, doDelete);
-        if (doDelete.value === true && operacao === 'R') {
+        if (result === true && doDelete.value === true && operacao === 'R') {
             await svg_paint_no(arvore.raiz, 'noSuccess', false);
             await e_RemoveArvore();
             doDelete.value = false;
@@ -63,7 +63,7 @@ async function e_BuscaNo(No, valorBusca, operacao, doDelete) {
         }
         else {
             result = await e_BuscaNo(No.no_esquerda, valorBusca, operacao, doDelete);
-            if (doDelete.value === true && operacao === 'R') {
+            if (result === true && doDelete.value === true && operacao === 'R') {
                 await svg_paint_no(No.no_esquerda, 'noSuccess', false);
                 await e_RemoveNo(No, 'E');
                 doDelete.value = false;
@@ -83,7 +83,7 @@ async function e_BuscaNo(No, valorBusca, operacao, doDelete) {
         }
         else {
             result = await e_BuscaNo(No.no_direita, valorBusca, operacao, doDelete);
-            if (doDelete.value === true && operacao === 'R') {
+            if (result === true && doDelete.value === true && operacao === 'R') {
                 await svg_paint_no(No.no_direita, 'noSuccess', false);
                 await e_RemoveNo(No, 'D');
                 doDelete.value = false;
