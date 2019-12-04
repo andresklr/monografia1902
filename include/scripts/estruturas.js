@@ -296,7 +296,7 @@ async function e_RotacaoArvore(desbalanceado) {
 
             if (arvore.raiz.balance > 0) {
                 tipoTransformacao = 'L';
-                if (arvore.raiz.no_esquerda.balance > 0) {
+                if (arvore.raiz.no_esquerda.balance >= 0) {
                     tipoTransformacao += 'L';
                 }
                 else tipoTransformacao += 'R';
@@ -387,7 +387,7 @@ async function e_RotacaoNo(No, lado, desbalanceado) {
             if (No.no_esquerda.valor === desbalanceado.valor) {                
                 if (No.no_esquerda.balance > 0) {
                     tipoTransformacao = 'L';
-                    if (No.no_esquerda.no_esquerda.balance > 0) {
+                    if (No.no_esquerda.no_esquerda.balance >= 0) {
                         tipoTransformacao += 'L';
                     }
                     else tipoTransformacao += 'R';
