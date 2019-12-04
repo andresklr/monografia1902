@@ -101,15 +101,15 @@ function b_logIndex(message, novalinha) {
 
 async function b_imprimir_click() {
     await svg_limparCores(); 
-    b_logIndex("Impressão RED (Pré-Ordem)",true);    
+    b_logIndex("Impressao RED (Pre-Ordem)",true);    
     await e_Imprimir_RED(arvore.raiz);    
     await sleep(velocidade);
     await svg_limparCores();   
-    b_logIndex("Impressão ERD (Em-Ordem)",true);
+    b_logIndex("Impressao ERD (Em-Ordem)",true);
     await e_Imprimir_ERD(arvore.raiz);
     await sleep(velocidade);
     await svg_limparCores();   
-    b_logIndex("Impressão EDR (Pós-Ordem)",true);
+    b_logIndex("Impressao EDR (Pos-Ordem)",true);
     await e_Imprimir_EDR(arvore.raiz);
 }
 
