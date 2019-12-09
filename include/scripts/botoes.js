@@ -34,6 +34,10 @@ async function b_pause_click() {
     paused = true;
 }
 
+async function b_velocidade_click() {
+    velocidade = 1501 - $('#velocidade').val();
+}
+
 async function b_continue_click() {
     try {
         $('#continue').attr('disabled', 'disabled');

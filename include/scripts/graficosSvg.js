@@ -58,7 +58,8 @@ function svg_mover_arvore(h, animate) {
     h--;
     var haux = h * espacamento;
     var x1 = xinicial;
-    var y1 = yinicial - (larguraNo * haux);
+    //var y1 = yinicial - (larguraNo * haux);
+    var y1 = yinicial;
     var y2 = y1 + larguraNo * 1.3;
     var x2l = xinicial + (larguraNo * haux * -1);
     var x2r = xinicial + (larguraNo * haux);
