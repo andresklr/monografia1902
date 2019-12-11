@@ -35,7 +35,7 @@ async function b_pause_click() {
 }
 
 async function b_velocidade_click() {
-    velocidade = 1501 - $('#velocidade').val();
+    velocidade = 3001 - $('#velocidade').val();
 }
 
 async function b_Toggle_Columns() {    
