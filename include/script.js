@@ -346,7 +346,9 @@ $(document).ready(
             var url = new URL(window.location.href);
             try {
                 var o = url.searchParams.get("tipo");
-                $('#tipo-lista').val(o);
+                if (o.length > 0) {
+                    $('#tipo-lista').val(o);
+                }
             }
             catch{
                 1;
