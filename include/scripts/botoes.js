@@ -38,6 +38,17 @@ async function b_velocidade_click() {
     velocidade = 1501 - $('#velocidade').val();
 }
 
+async function b_Toggle_Columns() {    
+    if ($('#toggle').text() === 'Exibir Laterais') {        
+        $('#toggle').text('Esconder Laterais');
+    }
+    else {
+        $('#toggle').text('Exibir Laterais');
+    }
+    $('#coluna-esquerda').toggle();
+    $('#coluna-direita').toggle();
+}
+
 async function b_continue_click() {
     try {
         $('#continue').attr('disabled', 'disabled');
@@ -118,6 +129,10 @@ async function b_imprimir_click() {
 }
 
 function b_mudararvore_click() {
+    var o = $('#tipo-lista').val();
+    if (o !== 'BB' && o !== 'AVL') {
+        window.location.href = '/index.html?tipo=' + o;
+    }
     main_initiate();
 }
 

@@ -1,10 +1,12 @@
 $(document).ready(
     function () {
+        set_ddl();
+        b_Toggle_Columns();
         main_initiate();
     }
 );
 
-function main_initiate() {
+function main_initiate() {    
     $('#lista').empty();
     svg = SVG('lista');
     medidas_svg = document.getElementById('lista').getBoundingClientRect();
@@ -19,4 +21,15 @@ function main_initiate() {
 
     $('#log').empty();
     tipo_arvore = $('#tipo-lista').val();
+}
+
+function set_ddl() {    
+    var url = new URL(window.location.href);
+    try {
+        var o = url.searchParams.get("tipo");
+        $('#tipo-lista').val(o);
+    }
+    catch{
+        1;
+    }
 }
