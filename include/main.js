@@ -14,7 +14,7 @@ function main_initiate() {
     altura_svg = medidas_svg.height;
 
     xinicial = (largura_svg - larguraNo) / 2;
-    yinicial = altura_svg * 0.05;
+    yinicial = altura_svg * 0.15;
 
     b_bloquearBotoes();
     $('#criar').removeAttr('disabled');

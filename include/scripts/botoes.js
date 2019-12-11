@@ -138,6 +138,7 @@ function b_mudararvore_click() {
 
 async function b_gerar_click() {      
     criar_arvore();
+    b_bloquearBotoes(true);
     await ListaAleatoria(maxItems);      
     /*await e_InserirValor(40);    
     await e_InserirValor(20);
@@ -146,7 +147,6 @@ async function b_gerar_click() {
     await e_InserirValor(30);
     await e_InserirValor(22);
     await e_InserirValor(50);    */
-
     b_desbloquearBotoes();    
 }
 
@@ -163,7 +163,10 @@ async function ListaAleatoria(quantity) {
     }    
 }
 
-function b_bloquearBotoes() {
+function b_bloquearBotoes(criar = false) {
+    if (criar === true) {
+        $('#criar').attr('disabled', 'disabled');
+    }
     $('#adicionar').attr('disabled', 'disabled');
     $('#altura').attr('disabled', 'disabled');
     $('#remover').attr('disabled', 'disabled');
@@ -174,6 +177,12 @@ function b_bloquearBotoes() {
 }
 
 function b_desbloquearBotoes() {
+    try {
+        $('#criar').removeAttr('disabled');
+    }
+    catch{
+        1;
+    }
     $('#adicionar').removeAttr('disabled');
     $('#altura').removeAttr('disabled');
     $('#remover').removeAttr('disabled');
